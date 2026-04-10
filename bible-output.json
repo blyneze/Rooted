@@ -1,0 +1,5 @@
+{
+  "message": "Bible API Error",
+  "error": "Internal Server Error",
+  "statusCode": 500
+}
