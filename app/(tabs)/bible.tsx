@@ -105,6 +105,7 @@ function VerseActionPanel({
     onClose();
   };
 
+  return (
     <View style={panelStyles.floatingWrapper}>
       <View style={panelStyles.container}>
         <View style={panelStyles.header}>

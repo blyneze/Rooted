@@ -7,79 +7,68 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert,
 } from 'react-native';
 import { router } from 'expo-router';
-import { useSignUp, useClerk, useAuth } from '@clerk/expo';
+import { useClerk, useAuth } from '@clerk/expo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { Button } from '@/components/ui/Button';
 import theme from '@/theme';
 
-type Step = 'details' | 'verify';
+type Step = 'request' | 'reset';
 
-export default function SignUpScreen() {
+export default function ForgotPasswordScreen() {
   const { client, setActive } = useClerk();
   const { isLoaded } = useAuth();
-  const signUp = client.signUp;
+  const signIn = client.signIn;
 
-  const [step, setStep] = useState<Step>('details');
-  const [firstName, setFirstName] = useState('');
+  const [step, setStep] = useState<Step>('request');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSignUp = async () => {
-    if (!isLoaded) {
-      Alert.alert("Error", "Clerk is not fully loaded yet. Please wait a moment.");
-      return;
-    }
-    if (!firstName || !email || !password) {
-      Alert.alert("Missing Fields", "Please fill out all fields.");
-      return;
-    }
-
+  const handleRequestReset = async () => {
+    if (!isLoaded || !email) return;
     setIsLoading(true);
     setError('');
     
     try {
-      await signUp.create({
-        firstName,
-        emailAddress: email,
-        password,
+      await signIn.create({
+        strategy: 'reset_password_email_code' as any,
+        identifier: email,
       });
-
-      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
-      setStep('verify');
+      setStep('reset');
     } catch (err: any) {
-      console.error("[SignUp Error]", JSON.stringify(err, null, 2));
-      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Could not create account. Please try again.';
-      setError(message);
-      Alert.alert("Sign Up Failed", message);
+      setError(err?.errors?.[0]?.message ?? err?.message ?? 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleVerify = async () => {
-    if (!isLoaded) return;
+  const handleResetPassword = async () => {
+    if (!isLoaded || !code || !password) return;
     setIsLoading(true);
     setError('');
     
     try {
-      const result = await signUp.attemptEmailAddressVerification({ code });
-      
+      const result = await signIn.attemptFirstFactor({
+        strategy: 'reset_password_email_code' as any,
+        code,
+        password,
+      });
+
       if (result.status === 'complete') {
         await setActive({ session: result.createdSessionId });
         router.replace('/(tabs)');
+      } else {
+        setError('Reset failed. Please try again.');
       }
     } catch (err: any) {
-      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Invalid verification code.';
-      setError(message);
+      setError(err?.errors?.[0]?.message ?? err?.message ?? 'Reset failed. Check the code and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -98,36 +87,23 @@ export default function SignUpScreen() {
         >
           {/* Back */}
           <TouchableOpacity
-            onPress={() => (step === 'verify' ? setStep('details') : router.back())}
+            onPress={() => (step === 'reset' ? setStep('request') : router.back())}
             style={styles.back}
             hitSlop={12}
           >
             <Ionicons name="arrow-back" size={22} color={theme.colors.textPrimary} />
           </TouchableOpacity>
 
-          {step === 'details' ? (
+          {step === 'request' ? (
             <>
               <View style={styles.header}>
-                <Typography variant="heading1">Create your account</Typography>
+                <Typography variant="heading1">Reset password</Typography>
                 <Typography variant="body" color="secondary" style={{ marginTop: 8 }}>
-                  Begin your journey. Rooted in the Word.
+                  Enter your email address and we'll send you a code to reset your password.
                 </Typography>
               </View>
 
               <View style={styles.form}>
-                <View style={styles.fieldGroup}>
-                  <Typography variant="label" color="secondary">First name</Typography>
-                  <TextInput
-                    style={styles.input}
-                    value={firstName}
-                    onChangeText={setFirstName}
-                    autoCapitalize="words"
-                    placeholder="Your first name"
-                    placeholderTextColor={theme.colors.textTertiary}
-                    selectionColor={theme.colors.accent}
-                  />
-                </View>
-
                 <View style={styles.fieldGroup}>
                   <Typography variant="label" color="secondary">Email</Typography>
                   <TextInput
@@ -142,15 +118,59 @@ export default function SignUpScreen() {
                   />
                 </View>
 
+                {error ? (
+                  <View style={styles.errorBox}>
+                    <Ionicons name="alert-circle" size={16} color={theme.colors.accent} />
+                    <Typography variant="caption" color="accent" style={{ marginLeft: 6, flex: 1 }}>
+                      {error}
+                    </Typography>
+                  </View>
+                ) : null}
+              </View>
+
+              <Button
+                label="Send code"
+                variant="primary"
+                size="lg"
+                fullWidth
+                isLoading={isLoading}
+                onPress={handleRequestReset}
+                style={styles.submitBtn}
+              />
+            </>
+          ) : (
+            <>
+              <View style={styles.header}>
+                <Typography variant="heading1">Check your email</Typography>
+                <Typography variant="body" color="secondary" style={{ marginTop: 8 }}>
+                  We've sent a 6-digit code to {email}.
+                </Typography>
+              </View>
+
+              <View style={styles.form}>
                 <View style={styles.fieldGroup}>
-                  <Typography variant="label" color="secondary">Password</Typography>
+                  <Typography variant="label" color="secondary">Verification code</Typography>
+                  <TextInput
+                    style={[styles.input, styles.codeInput]}
+                    value={code}
+                    onChangeText={setCode}
+                    keyboardType="number-pad"
+                    maxLength={6}
+                    placeholder="000000"
+                    placeholderTextColor={theme.colors.textTertiary}
+                    selectionColor={theme.colors.accent}
+                  />
+                </View>
+
+                <View style={styles.fieldGroup}>
+                  <Typography variant="label" color="secondary">New password</Typography>
                   <View style={styles.passwordRow}>
                     <TextInput
                       style={[styles.input, styles.passwordInput]}
                       value={password}
                       onChangeText={setPassword}
                       secureTextEntry={!showPassword}
-                      placeholder="Create a password"
+                      placeholder="Create a new password"
                       placeholderTextColor={theme.colors.textTertiary}
                       selectionColor={theme.colors.accent}
                     />
@@ -179,73 +199,16 @@ export default function SignUpScreen() {
               </View>
 
               <Button
-                label="Create account"
+                label="Reset password"
                 variant="primary"
                 size="lg"
                 fullWidth
                 isLoading={isLoading}
-                onPress={handleSignUp}
-                style={styles.submitBtn}
-              />
-            </>
-          ) : (
-            <>
-              <View style={styles.header}>
-                <View style={styles.verifyIcon}>
-                  <Ionicons name="mail" size={32} color={theme.colors.accent} />
-                </View>
-                <Typography variant="heading1" style={{ marginBottom: 8 }}>Check your email</Typography>
-                <Typography variant="body" color="secondary">
-                  We sent a verification code to{'\n'}
-                  <Typography variant="body" style={{ color: theme.colors.textPrimary }}>
-                    {email}
-                  </Typography>
-                </Typography>
-              </View>
-
-              <View style={styles.form}>
-                <View style={styles.fieldGroup}>
-                  <Typography variant="label" color="secondary">Verification code</Typography>
-                  <TextInput
-                    style={[styles.input, styles.codeInput]}
-                    value={code}
-                    onChangeText={setCode}
-                    keyboardType="number-pad"
-                    maxLength={6}
-                    placeholder="000000"
-                    placeholderTextColor={theme.colors.textTertiary}
-                    selectionColor={theme.colors.accent}
-                  />
-                </View>
-
-                {error ? (
-                  <View style={styles.errorBox}>
-                    <Ionicons name="alert-circle" size={16} color={theme.colors.accent} />
-                    <Typography variant="caption" color="accent" style={{ marginLeft: 6, flex: 1 }}>
-                      {error}
-                    </Typography>
-                  </View>
-                ) : null}
-              </View>
-
-              <Button
-                label="Verify email"
-                variant="primary"
-                size="lg"
-                fullWidth
-                isLoading={isLoading}
-                onPress={handleVerify}
+                onPress={handleResetPassword}
                 style={styles.submitBtn}
               />
             </>
           )}
-
-          <View style={styles.switchRow}>
-            <Typography variant="body" color="secondary">Already have an account? </Typography>
-            <TouchableOpacity onPress={() => router.replace('/(auth)/sign-in')} hitSlop={8}>
-              <Typography variant="body" color="accent">Sign in</Typography>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -270,15 +233,6 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: theme.spacing['2xl'],
-  },
-  verifyIcon: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    backgroundColor: theme.colors.accentMuted,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: theme.spacing.xl,
   },
   form: {
     gap: theme.spacing.base,
@@ -327,10 +281,5 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginBottom: theme.spacing.xl,
-  },
-  switchRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

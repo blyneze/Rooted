@@ -39,8 +39,8 @@ export class UserController {
   }
 
   @Post('playlists/:id/items')
-  async addPlaylistItem(@CurrentUser() userId: string, @Param('id') playlistId: string, @Body() body: { messageId: string }) {
-    return this.userService.addPlaylistItem(userId, playlistId, { messageId: body.messageId });
+  async addPlaylistItem(@CurrentUser() userId: string, @Param('id') playlistId: string, @Body() body: { messageId?: string; videoId?: string }) {
+    return this.userService.addPlaylistItem(userId, playlistId, { messageId: body.messageId, videoId: body.videoId });
   }
 
   @Delete('playlists/:id')

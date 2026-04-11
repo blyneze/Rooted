@@ -8,9 +8,10 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { router } from 'expo-router';
-import { useSignIn } from '@clerk/expo';
+import { useSignIn, useClerk, useAuth } from '@clerk/expo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
@@ -18,8 +19,10 @@ import { Button } from '@/components/ui/Button';
 import theme from '@/theme';
 
 export default function SignInScreen() {
-  // @ts-ignore
-  const { signIn, setActive, isLoaded } = useSignIn() as any;
+  const { client, setActive } = useClerk();
+  const { isLoaded } = useAuth();
+  const signIn = client.signIn;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -27,17 +30,29 @@ export default function SignInScreen() {
   const [error, setError] = useState('');
 
   const handleSignIn = async () => {
-    if (!isLoaded || !email || !password) return;
+    if (!isLoaded) {
+      Alert.alert("Error", "Clerk is not fully loaded yet. Please wait a moment.");
+      return;
+    }
+    if (!email || !password) {
+      Alert.alert("Missing Fields", "Please enter both email and password.");
+      return;
+    }
+    
     setIsLoading(true);
     setError('');
+    
     try {
-      const result = await signIn.create({ identifier: email, password, strategy: 'password' });
+      const result = await signIn.create({ identifier: email, password });
       if (result.status === 'complete') {
         await setActive({ session: result.createdSessionId });
         router.replace('/(tabs)');
       }
     } catch (err: any) {
-      setError(err?.errors?.[0]?.message ?? 'Sign in failed. Please try again.');
+      console.error("[SignIn Error]", JSON.stringify(err, null, 2));
+      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Sign in failed. Please try again.';
+      setError(message);
+      Alert.alert("Sign In Failed", message);
     } finally {
       setIsLoading(false);
     }
@@ -126,7 +141,11 @@ export default function SignInScreen() {
             ) : null}
 
             {/* Forgot */}
-            <TouchableOpacity style={styles.forgotRow} hitSlop={8}>
+            <TouchableOpacity 
+              style={styles.forgotRow} 
+              onPress={() => router.push('/(auth)/forgot-password')}
+              hitSlop={8}
+            >
               <Typography variant="label" color="accent">
                 Forgot password?
               </Typography>

@@ -16,7 +16,7 @@ interface AudioStore {
   isFullPlayerVisible: boolean;
 
   // Actions
-  setCurrentMessage: (message: AudioMessage) => void;
+  setCurrentMessage: (message: AudioMessage, autoplay?: boolean) => void;
   setQueue: (items: QueueItem[], startIndex?: number) => void;
   setPlayerState: (state: PlayerState) => void;
   setProgress: (progress: number) => void;
@@ -45,8 +45,12 @@ export const useAudioStore = create<AudioStore>((set) => ({
   isFullPlayerVisible: false,
   seekTo: (time: number) => set({ seekTime: time, position: time }),
 
-  setCurrentMessage: (message) =>
-    set({ currentMessage: message, isMiniPlayerVisible: true }),
+  setCurrentMessage: (message, autoplay = true) =>
+    set({
+      currentMessage: message,
+      isMiniPlayerVisible: true,
+      playerState: autoplay ? 'playing' : 'idle',
+    }),
 
   setQueue: (items, startIndex = 0) =>
     set({ queue: items, queueIndex: startIndex }),

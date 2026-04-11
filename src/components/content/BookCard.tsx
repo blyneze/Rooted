@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
@@ -14,9 +14,13 @@ interface BookCardProps {
 }
 
 export function BookCard({ book, onPress, variant = 'shelf', width = 120 }: BookCardProps) {
+  const handlePress = () => {
+    Alert.alert('Coming Soon', 'The PDF for this book is not ready yet. Please check back later!');
+  };
+
   if (variant === 'list') {
     return (
-      <TouchableOpacity style={styles.listItem} onPress={() => onPress(book)} activeOpacity={0.75}>
+      <TouchableOpacity style={styles.listItem} onPress={handlePress} activeOpacity={0.75}>
         <Image
           source={{ uri: book.coverUrl }}
           style={styles.listCover}
@@ -45,7 +49,7 @@ export function BookCard({ book, onPress, variant = 'shelf', width = 120 }: Book
   return (
     <TouchableOpacity
       style={[styles.shelfCard, { width }]}
-      onPress={() => onPress(book)}
+      onPress={handlePress}
       activeOpacity={0.8}
     >
       <View style={[styles.cover, { width, height: width * 1.4 }]}>

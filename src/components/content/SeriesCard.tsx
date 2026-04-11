@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import theme from '@/theme';
@@ -21,21 +22,23 @@ export function SeriesCard({ series, onPress, variant = 'shelf', width = 160 }: 
         onPress={() => onPress(series)}
         activeOpacity={0.82}
       >
-        <Image
+      <Image
           source={{ uri: series.artworkUrl }}
           style={StyleSheet.absoluteFillObject}
           contentFit="cover"
           transition={300}
         />
-        <View style={styles.featuredOverlay}>
-          <View style={styles.featuredMeta}>
-            <Typography variant="overline" style={{ color: 'rgba(255,255,255,0.6)', marginBottom: 4 }}>
-              {series.messageCount} Messages
-            </Typography>
-            <Typography variant="heading3" style={{ color: '#FFF' }} numberOfLines={2}>
-              {series.name}
-            </Typography>
-          </View>
+        <LinearGradient
+          colors={['transparent', 'rgba(0,0,0,0.85)']}
+          style={styles.featuredOverlay}
+        />
+        <View style={styles.featuredMeta}>
+          <Typography variant="overline" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 2, fontSize: 10 }}>
+            {series.messageCount} Messages
+          </Typography>
+          <Typography variant="label" style={{ color: '#FFF', fontSize: 14 }} numberOfLines={2}>
+            {series.name}
+          </Typography>
         </View>
       </TouchableOpacity>
     );
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: theme.colors.surfaceMid,
     marginRight: theme.spacing.md,
-    width: 280,
+    width: 340,
     flex: 0,
   },
   featuredOverlay: {
@@ -110,12 +113,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: theme.spacing.base,
-    backgroundColor: 'rgba(0,0,0,0.55)',
-    borderBottomLeftRadius: theme.radius.xl,
-    borderBottomRightRadius: theme.radius.xl,
+    height: '55%',
   },
-  featuredMeta: {},
+  featuredMeta: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: theme.spacing.base,
+    paddingBottom: theme.spacing.md,
+  },
 });
 
 export default SeriesCard;

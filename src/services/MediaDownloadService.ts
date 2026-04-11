@@ -72,7 +72,18 @@ class MediaDownloadService {
 
       if (result && result.uri) {
         console.log(`[DownloadService] Download completed: ${result.uri}`);
-        setStatus(nextItem.messageId, 'completed', result.uri);
+        
+        let sizeBytes: number | undefined;
+        try {
+          const info = await FileSystem.getInfoAsync(result.uri, { size: true });
+          if (info.exists && !info.isDirectory) {
+            sizeBytes = info.size;
+          }
+        } catch (e) {
+          console.warn('[DownloadService] Failed to get file size', e);
+        }
+
+        setStatus(nextItem.messageId, 'completed', result.uri, sizeBytes);
       } else {
         throw new Error('Download failed: No URI returned');
       }

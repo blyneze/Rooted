@@ -110,12 +110,29 @@ export function Typography({
   children,
   ...rest
 }: TypographyProps) {
+  // Determine which weight to use: manual prop primary, then variant default
+  const resolvedWeight = weight || (variantStyles[variant]?.fontWeight as keyof typeof theme.fontWeight) || 'regular';
+  
+  // Map weight key (e.g., 'bold') to the corresponding Inter font family
+  // Fallback 'heavy' (800) to 'bold' (700) since we only loaded up to 700
+  const weightMap: Record<string, string> = {
+    regular: theme.fonts.regular,
+    medium: theme.fonts.medium,
+    semibold: theme.fonts.semibold,
+    bold: theme.fonts.bold,
+    heavy: theme.fonts.bold, 
+  };
+
+  const fontFamily = weightMap[resolvedWeight] || theme.fonts.regular;
+
   return (
     <Text
       style={[
         variantStyles[variant],
-        { color: colorMap[color] },
-        weight && { fontWeight: theme.fontWeight[weight] },
+        { 
+          color: colorMap[color],
+          fontFamily,
+        },
         align && { textAlign: align },
         style,
       ]}

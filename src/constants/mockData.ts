@@ -22,6 +22,31 @@ export const AUDIO_MESSAGES: AudioMessage[] = [];
 export const SERIES_LIST: Series[] = [];
 export const BOOKS: Book[] = [];
 export const PLAYLISTS: Playlist[] = [];
-export const NOTIFICATIONS: AppNotification[] = [];
+export const NOTIFICATIONS: AppNotification[] = [
+  {
+    id: 'n1',
+    title: 'New Series Released!',
+    body: 'Dive into the newest teaching series "Faith & Power" available now in the library.',
+    type: 'new_series',
+    isRead: false,
+    createdAt: new Date(Date.now() - 3600000).toISOString(), 
+  },
+  {
+    id: 'n2',
+    title: 'Live Event Reminder',
+    body: 'Join us tonight at 7 PM for a special live session with Pastor Yemi.',
+    type: 'reminder',
+    isRead: false,
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+  },
+  {
+    id: 'n3',
+    title: 'New Book Added',
+    body: 'A new book "Rooted in the Word" has been added to the bookstore.',
+    type: 'system',
+    isRead: true,
+    createdAt: new Date(Date.now() - 259200000).toISOString(),
+  }
+];
 export const SAMPLE_HIGHLIGHTS: Highlight[] = [];
 export const SAMPLE_NOTES: BibleNote[] = [];

@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,6 +14,7 @@ import { Typography } from "@/components/ui/Typography";
 import { MessageListItem } from "@/components/content/MessageCard";
 import { SeriesCard } from "@/components/content/SeriesCard";
 import { BookCard } from "@/components/content/BookCard";
+import { VideoCard } from "@/components/content/VideoCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useUIStore } from "@/store/uiStore";
 import { useAudioStore } from "@/store/audioStore";
@@ -20,18 +22,19 @@ import { useMessages, useSeries, useBooks, usePlaylists, useCreatePlaylist } fro
 import { CreatePlaylistModal } from "@/components/modals/CreatePlaylistModal";
 import { AddToPlaylistModal } from "@/components/modals/AddToPlaylistModal";
 import theme from "@/theme";
-import type { LibraryFilter, AudioMessage, Series, Book, Playlist } from "@/types";
+import type { LibraryFilter, AudioMessage, VideoMessage, Series, Book, Playlist } from "@/types";
 
 const FILTERS: { key: LibraryFilter; label: string }[] = [
   { key: "all", label: "All" },
   { key: "audio", label: "Audio" },
+  { key: "videos", label: "Videos" },
   { key: "books", label: "Books" },
   { key: "series", label: "Series" },
   { key: "playlists", label: "Playlists" },
 ];
 
 export default function LibraryScreen() {
-  const { libraryFilter, setLibraryFilter } = useUIStore();
+  const { libraryFilter, setLibraryFilter, setSelectedMediaForOptions } = useUIStore();
   const { setCurrentMessage, setPlayerState } = useAudioStore();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -41,8 +44,6 @@ export default function LibraryScreen() {
   const { data: playlistsData } = usePlaylists();
   const createPlaylist = useCreatePlaylist();
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedMessage, setSelectedMessage] = useState<AudioMessage | null>(null);
-  const [showAddModal, setShowAddModal] = useState(false);
 
   const handlePlayMessage = (message: AudioMessage) => {
     setCurrentMessage(message);
@@ -50,14 +51,15 @@ export default function LibraryScreen() {
   };
 
   const handleMorePress = (message: AudioMessage) => {
-    setSelectedMessage(message);
-    setShowAddModal(true);
+    setSelectedMediaForOptions(message);
   };
 
   // Filter content
   const filteredMessages = useMemo(() => {
     if (libraryFilter !== "all" && libraryFilter !== "audio") return [];
-    const sourceData = messagesData || [];
+    let sourceData = messagesData?.audio || [];
+    if (!Array.isArray(sourceData)) sourceData = sourceData.data || [];
+    if (!Array.isArray(sourceData)) return [];
     const q = searchQuery.toLowerCase();
     return sourceData.filter(
       (m: any) =>
@@ -70,9 +72,26 @@ export default function LibraryScreen() {
     );
   }, [libraryFilter, searchQuery, messagesData]);
 
+  const filteredVideos = useMemo(() => {
+    if (libraryFilter !== "all" && libraryFilter !== "videos") return [];
+    let sourceData = messagesData?.video || [];
+    if (!Array.isArray(sourceData)) sourceData = sourceData.data || [];
+    if (!Array.isArray(sourceData)) return [];
+    const q = searchQuery.toLowerCase();
+    return sourceData.filter(
+      (v: any) =>
+        !q ||
+        (v.title && v.title.toLowerCase().includes(q)) ||
+        (v.speakerName && v.speakerName.toLowerCase().includes(q)) ||
+        (v.topicTags && v.topicTags.some((t: string) => t.toLowerCase().includes(q))),
+    );
+  }, [libraryFilter, searchQuery, messagesData]);
+
   const filteredSeries = useMemo(() => {
     if (libraryFilter !== "all" && libraryFilter !== "series") return [];
-    const sourceData = seriesData || [];
+    let sourceData = seriesData || [];
+    if (!Array.isArray(sourceData)) sourceData = sourceData.data || [];
+    if (!Array.isArray(sourceData)) return [];
     const q = searchQuery.toLowerCase();
     return sourceData.filter(
       (s: any) =>
@@ -85,7 +104,9 @@ export default function LibraryScreen() {
 
   const filteredBooks = useMemo(() => {
     if (libraryFilter !== "all" && libraryFilter !== "books") return [];
-    const sourceData = booksData || [];
+    let sourceData = booksData || [];
+    if (!Array.isArray(sourceData)) sourceData = sourceData.data || [];
+    if (!Array.isArray(sourceData)) return [];
     const q = searchQuery.toLowerCase();
     return sourceData.filter(
       (b: any) =>
@@ -97,13 +118,16 @@ export default function LibraryScreen() {
 
   const filteredPlaylists = useMemo(() => {
     if (libraryFilter !== "all" && libraryFilter !== "playlists") return [];
-    const sourceData = playlistsData || [];
+    let sourceData = playlistsData || [];
+    if (!Array.isArray(sourceData)) sourceData = sourceData.data || [];
+    if (!Array.isArray(sourceData)) return [];
     const q = searchQuery.toLowerCase();
     return sourceData.filter((p: any) => !q || ((p.name) && (p.name).toLowerCase().includes(q)));
   }, [libraryFilter, searchQuery, playlistsData]);
 
   const isEmpty =
     filteredMessages.length === 0 &&
+    filteredVideos.length === 0 &&
     filteredSeries.length === 0 &&
     filteredBooks.length === 0 &&
     filteredPlaylists.length === 0;
@@ -148,30 +172,36 @@ export default function LibraryScreen() {
       </View>
 
       {/* ── Filters ─────────────────────────────────────────────────────────── */}
-      <View style={styles.filterRow}>
-        {FILTERS.map((filter) => (
-          <TouchableOpacity
-            key={filter.key}
-            style={[
-              styles.filterChip,
-              libraryFilter === filter.key && styles.filterChipActive,
-            ]}
-            onPress={() => setLibraryFilter(filter.key)}
-            activeOpacity={0.7}
-          >
-            <Typography
-              variant="label"
-              style={{
-                color:
-                  libraryFilter === filter.key
-                    ? theme.colors.accent
-                    : theme.colors.textSecondary,
-              }}
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filterRow}
+        >
+          {FILTERS.map((filter) => (
+            <TouchableOpacity
+              key={filter.key}
+              style={[
+                styles.filterChip,
+                libraryFilter === filter.key && styles.filterChipActive,
+              ]}
+              onPress={() => setLibraryFilter(filter.key)}
+              activeOpacity={0.7}
             >
-              {filter.label}
-            </Typography>
-          </TouchableOpacity>
-        ))}
+              <Typography
+                variant="label"
+                style={{
+                  color:
+                    libraryFilter === filter.key
+                      ? theme.colors.accent
+                      : theme.colors.textSecondary,
+                }}
+              >
+                {filter.label}
+              </Typography>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
       {/* ── Content ─────────────────────────────────────────────────────────── */}
@@ -215,6 +245,31 @@ export default function LibraryScreen() {
                       showDivider={i < filteredMessages.length - 1}
                     />
                   ))}
+                </View>
+              )}
+
+              {/* Videos */}
+              {filteredVideos.length > 0 && (
+                <View style={styles.section}>
+                  {(libraryFilter === "all" || libraryFilter === "videos") && (
+                    <Typography
+                      variant="overline"
+                      color="tertiary"
+                      style={styles.sectionLabel}
+                    >
+                      Videos
+                    </Typography>
+                  )}
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: theme.spacing.base }}>
+                    {filteredVideos.map((video: VideoMessage) => (
+                      <VideoCard
+                        key={video.id}
+                        video={video}
+                        onPress={(v) => router.push(`/video/${v.id}`)}
+                        width={280}
+                      />
+                    ))}
+                  </ScrollView>
                 </View>
               )}
 
@@ -328,12 +383,6 @@ export default function LibraryScreen() {
           createPlaylist.mutate({ name, description });
         }}
       />
-
-      <AddToPlaylistModal
-        isVisible={showAddModal}
-        onClose={() => setShowAddModal(false)}
-        message={selectedMessage}
-      />
     </SafeAreaView>
   );
 }
@@ -367,24 +416,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.md,
+    borderRadius: 100, // Pill shape
     paddingHorizontal: theme.spacing.md,
-    height: 44,
+    height: 48,
     gap: theme.spacing.sm,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.surfaceBorder,
+    shadowColor: theme.colors.textPrimary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
   },
   searchInput: {
     flex: 1,
     fontSize: theme.fontSize.base,
     color: theme.colors.textPrimary,
+    borderWidth: 0,
   },
   filterRow: {
-    flexDirection: "row",
     paddingHorizontal: theme.spacing.base,
     gap: theme.spacing.sm,
     marginBottom: theme.spacing.md,
-    flexWrap: "nowrap",
   },
   filterChip: {
     paddingHorizontal: 12,

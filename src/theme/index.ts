@@ -144,6 +144,13 @@ export const zIndex = {
   toast: 50,
 } as const;
 
+export const fonts = {
+  regular: 'Inter_400Regular',
+  medium: 'Inter_500Medium',
+  semibold: 'Inter_600SemiBold',
+  bold: 'Inter_700Bold',
+} as const;
+
 const theme = {
   colors,
   spacing,
@@ -155,6 +162,7 @@ const theme = {
   iconSize,
   shadow,
   zIndex,
+  fonts,
 };
 
 export type Theme = typeof theme;

@@ -16,6 +16,7 @@ import { Typography } from "@/components/ui/Typography";
 import { MessageListItem, MessageCard } from "@/components/content/MessageCard";
 import { SeriesCard } from "@/components/content/SeriesCard";
 import { BookCard } from "@/components/content/BookCard";
+import { VideoCard } from "@/components/content/VideoCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useUIStore } from "@/store/uiStore";
 import { useAudioStore } from "@/store/audioStore";
@@ -27,6 +28,7 @@ import { useLocalSearchParams } from "expo-router";
 const SEARCH_FILTERS: { key: SearchFilterType; label: string }[] = [
   { key: "all", label: "All" },
   { key: "audio", label: "Audio" },
+  { key: "video", label: "Video" },
   { key: "series", label: "Series" },
   { key: "books", label: "Books" },
 ];
@@ -35,7 +37,7 @@ export default function SearchScreen() {
   const { filter: initialFilter } = useLocalSearchParams<{
     filter?: SearchFilterType;
   }>();
-  const { recentSearches, addRecentSearch, clearRecentSearches } = useUIStore();
+  const { recentSearches, addRecentSearch, clearRecentSearches, setSelectedMediaForOptions } = useUIStore();
   const { setCurrentMessage, setPlayerState } = useAudioStore();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<SearchFilterType>(
@@ -49,25 +51,21 @@ export default function SearchScreen() {
   const q = query.toLowerCase().trim();
 
   const results = useMemo(() => {
-    if (!q && filter === "all") return { messages: [], series: [], books: [] };
+    if (!q && filter === "all") return { audio: [], video: [], series: [], books: [] };
 
     return {
-      messages:
+      audio:
         filter === "all" || filter === "audio"
-          ? (messagesData || []).filter(
+          ? (messagesData?.audio || []).filter(
               (m: any) =>
-                !q ||
-                (m.title && m.title.toLowerCase().includes(q)) ||
-                (m.speaker?.name && m.speaker.name.toLowerCase().includes(q)) ||
-                (m.topics &&
-                  m.topics.some((t: any) =>
-                    t.topic?.name.toLowerCase().includes(q),
-                  )) ||
-                (m.topicTags &&
-                  m.topicTags.some((t: string) =>
-                    t.toLowerCase().includes(q),
-                  )) ||
-                (m.description && m.description.toLowerCase().includes(q)),
+                !q || (m.title && m.title.toLowerCase().includes(q))
+            )
+          : [],
+      video:
+        filter === "all" || filter === "video"
+          ? (messagesData?.video || []).filter(
+              (m: any) =>
+                !q || (m.title && m.title.toLowerCase().includes(q))
             )
           : [],
       series:
@@ -96,7 +94,7 @@ export default function SearchScreen() {
   }, [q, filter, messagesData, seriesData, booksData]);
 
   const hasResults =
-    results.messages.length + results.series.length + results.books.length > 0;
+    results.audio.length + results.video.length + results.series.length + results.books.length > 0;
   const hasQuery = q.length > 0;
 
   const handleSubmitSearch = () => {
@@ -257,8 +255,8 @@ export default function SearchScreen() {
           {/* ── Results ──────────────────────────────────────────────────── */}
           {(hasQuery || filter !== "all") && hasResults && (
             <View>
-              {/* Messages */}
-              {results.messages.length > 0 && (
+              {/* Audio Messages */}
+              {results.audio.length > 0 && (
                 <View style={styles.resultSection}>
                   <Typography
                     variant="overline"
@@ -267,12 +265,34 @@ export default function SearchScreen() {
                   >
                     Audio messages
                   </Typography>
-                  {results.messages.map((msg: any, i: number) => (
+                  {results.audio.map((msg: any, i: number) => (
                     <MessageListItem
                       key={msg.id}
                       message={msg}
                       onPress={handlePlayMessage}
-                      showDivider={i < results.messages.length - 1}
+                      onMore={(m) => setSelectedMediaForOptions(m)}
+                      showDivider={i < results.audio.length - 1}
+                    />
+                  ))}
+                </View>
+              )}
+
+              {/* Video Teachings */}
+              {results.video.length > 0 && (
+                <View style={styles.resultSection}>
+                  <Typography
+                    variant="overline"
+                    color="tertiary"
+                    style={styles.resultSectionLabel}
+                  >
+                    Video teachings
+                  </Typography>
+                  {results.video.map((video: any) => (
+                    <VideoCard
+                      key={video.id}
+                      video={video}
+                      onPress={(v: any) => router.push(`/video/${v.id}`)}
+                      variant="list"
                     />
                   ))}
                 </View>

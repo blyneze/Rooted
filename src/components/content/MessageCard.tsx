@@ -3,9 +3,9 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { formatDurationLabel } from '@/constants/mockData';
@@ -151,8 +151,11 @@ export function FeaturedCard({ message, onPress, onMore }: FeaturedCardProps) {
         contentFit="cover"
         transition={400}
       />
-      {/* Gradient overlay */}
-      <View style={styles.featuredGradient} />
+      {/* Bottom-to-transparent gradient */}
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.82)']}
+        style={styles.featuredGradient}
+      />
       {/* Content */}
       <View style={styles.featuredContent}>
         <View style={styles.featuredBadge}>
@@ -161,20 +164,20 @@ export function FeaturedCard({ message, onPress, onMore }: FeaturedCardProps) {
           </Typography>
         </View>
         {message.series && (
-          <Typography variant="overline" color="secondary" style={{ marginBottom: 4 }}>
+          <Typography variant="overline" style={{ color: 'rgba(255,255,255,0.6)', marginBottom: 2, fontSize: 10 }}>
             {message.series.name}
           </Typography>
         )}
-        <Typography variant="heading2" style={{ color: '#FFF', marginBottom: 4 }}>
+        <Typography variant="title" style={{ color: '#FFF', marginBottom: 3, fontSize: 15 }} numberOfLines={1}>
           {message.title}
         </Typography>
-        <Typography variant="bodySmall" style={{ color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
-          {message.speaker?.name || (message as any).speakerName || 'Unknown Speaker'} · {formatDurationLabel(message.duration)}
+        <Typography variant="caption" style={{ color: 'rgba(255,255,255,0.65)', marginBottom: 12, fontSize: 11 }}>
+          {message.speakerName || message.speaker?.name || 'Unknown Speaker'} · {formatDurationLabel(message.duration)}
         </Typography>
         <View style={styles.featuredActions}>
           <View style={styles.featuredPlayBtn}>
-            <Ionicons name="play" size={18} color="#FFF" />
-            <Typography variant="label" style={{ color: '#FFF', marginLeft: 8 }}>
+            <Ionicons name="play" size={14} color="#FFF" />
+            <Typography variant="label" style={{ color: '#FFF', marginLeft: 6, fontSize: 12 }}>
               Play
             </Typography>
           </View>
@@ -185,7 +188,7 @@ export function FeaturedCard({ message, onPress, onMore }: FeaturedCardProps) {
           >
             <Ionicons
               name={message.isSaved ? 'bookmark' : 'bookmark-outline'}
-              size={20}
+              size={18}
               color={message.isSaved ? theme.colors.accent : 'rgba(255,255,255,0.7)'}
             />
           </TouchableOpacity>
@@ -298,7 +301,7 @@ const styles = StyleSheet.create({
 
   // Featured
   featuredCard: {
-    height: 280,
+    height: 380,
     borderRadius: theme.radius.xl,
     overflow: 'hidden',
     backgroundColor: theme.colors.surface,
@@ -309,8 +312,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: '80%',
-    backgroundColor: 'transparent',
+    height: '55%',
   },
   featuredContent: {
     position: 'absolute',
@@ -318,10 +320,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: theme.spacing.base,
-    paddingBottom: theme.spacing.lg,
-    backgroundColor: 'rgba(0,0,0,0.55)',
-    borderBottomLeftRadius: theme.radius.xl,
-    borderBottomRightRadius: theme.radius.xl,
+    paddingBottom: theme.spacing.base,
   },
   featuredBadge: {
     alignSelf: 'flex-start',

@@ -181,12 +181,68 @@ export default function ProfileScreen() {
 
         {/* ── Bible Study ─────────────────────────────────────────────────── */}
         <SectionHeader title="Bible Study" />
+
+        {/* Highlights summary row */}
         <SettingRow
-          icon="bookmarks-outline"
-          label="Highlights & Notes"
-          value={`${highlights.length + notes.length} items`}
+          icon="color-fill-outline"
+          label="Highlights"
+          value={`${highlights.length}`}
           onPress={() => router.push('/(tabs)/bible')}
         />
+
+        {/* Notes — expanded with scripture */}
+        <View style={styles.notesSection}>
+          <View style={styles.notesSectionHeader}>
+            <View style={styles.settingIconWrap}>
+              <Ionicons name="document-text-outline" size={18} color={theme.colors.textSecondary} />
+            </View>
+            <Typography variant="body" style={styles.settingLabel}>
+              Notes
+            </Typography>
+            <Typography variant="bodySmall" color="tertiary">
+              {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+            </Typography>
+          </View>
+
+          {notes.length === 0 ? (
+            <View style={styles.emptyNotes}>
+              <Typography variant="caption" color="tertiary">
+                Notes you save in the Bible will appear here.
+              </Typography>
+            </View>
+          ) : (
+            notes.slice().reverse().map((note) => (
+              <TouchableOpacity
+                key={note.id}
+                style={styles.noteCard}
+                onPress={() => router.push('/(tabs)/bible')}
+                activeOpacity={0.75}
+              >
+                {/* Scripture reference badge */}
+                <View style={styles.noteRefRow}>
+                  <Ionicons name="book-outline" size={12} color={theme.colors.accent} />
+                  <Typography variant="overline" style={styles.noteRef}>
+                    {note.verseReference}
+                  </Typography>
+                </View>
+                {/* Verse text */}
+                {note.verseText ? (
+                  <Typography variant="bodySmall" color="secondary" style={styles.noteVerseText} numberOfLines={2}>
+                    "{note.verseText}"
+                  </Typography>
+                ) : null}
+                {/* Note content */}
+                <Typography variant="bodySmall" style={styles.noteContent} numberOfLines={3}>
+                  {note.content}
+                </Typography>
+                {/* Timestamp */}
+                <Typography variant="caption" color="tertiary" style={styles.noteDate}>
+                  {new Date(note.updatedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </Typography>
+              </TouchableOpacity>
+            ))
+          )}
+        </View>
 
         {/* ── Account ─────────────────────────────────────────────────────── */}
         <SectionHeader title="Account" />
@@ -274,5 +330,55 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: theme.spacing.base,
     paddingVertical: 14,
+  },
+  // Notes section
+  notesSection: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.surfaceMid,
+  },
+  notesSectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.base,
+    paddingVertical: 14,
+    gap: theme.spacing.md,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.surfaceMid,
+  },
+  emptyNotes: {
+    paddingHorizontal: theme.spacing.base,
+    paddingLeft: theme.spacing.base + 28 + theme.spacing.md,
+    paddingVertical: 12,
+  },
+  noteCard: {
+    paddingHorizontal: theme.spacing.base,
+    paddingLeft: theme.spacing.base + 28 + theme.spacing.md,
+    paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.surfaceMid,
+    gap: 4,
+  },
+  noteRefRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginBottom: 2,
+  },
+  noteRef: {
+    color: theme.colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  noteVerseText: {
+    fontStyle: 'italic',
+    lineHeight: 19,
+    marginBottom: 4,
+  },
+  noteContent: {
+    lineHeight: 20,
+  },
+  noteDate: {
+    marginTop: 4,
+    fontSize: 11,
   },
 });

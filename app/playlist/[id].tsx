@@ -14,6 +14,7 @@ import { Typography } from '@/components/ui/Typography';
 import { MessageListItem } from '@/components/content/MessageCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useAudioStore } from '@/store/audioStore';
+import { useUIStore } from '@/store/uiStore';
 import { usePlaylist, useDeletePlaylist, useRemovePlaylistItem } from '@/api/queries';
 import theme from '@/theme';
 import type { AudioMessage, QueueItem, Playlist } from '@/types';
@@ -21,6 +22,7 @@ import type { AudioMessage, QueueItem, Playlist } from '@/types';
 export default function PlaylistDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { setCurrentMessage, setPlayerState, setQueue } = useAudioStore();
+  const { setSelectedMediaForOptions } = useUIStore();
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: playlist, isLoading } = usePlaylist(id);
@@ -159,6 +161,7 @@ export default function PlaylistDetailScreen() {
                   onPress={handlePlayMessage}
                   onMore={() => {
                     if (isEditing) handleRemoveItem(msg.id);
+                    else setSelectedMediaForOptions(msg);
                   }}
                   showDivider={i < playlist.items.length - 1}
                   index={i}

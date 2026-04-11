@@ -22,6 +22,7 @@ interface ButtonProps extends TouchableOpacityProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   fullWidth?: boolean;
+  labelStyle?: TextStyle;
 }
 
 const variantStyles: Record<ButtonVariant, { container: ViewStyle; text: TextStyle }> = {
@@ -84,9 +85,11 @@ export function Button({
   size = 'md',
   label,
   isLoading = false,
+  onPress,
   leftIcon,
   rightIcon,
   fullWidth = false,
+  labelStyle,
   style,
   disabled,
   ...rest
@@ -106,6 +109,10 @@ export function Button({
         (disabled || isLoading) && styles.disabled,
         style,
       ]}
+      onPress={(e) => {
+        console.log(`[Button] Pressed: ${label}`);
+        onPress?.(e);
+      }}
       {...rest}
     >
       {isLoading ? (
@@ -118,7 +125,7 @@ export function Button({
           {leftIcon && <View style={styles.iconLeft}>{leftIcon}</View>}
           <Typography
             variant="label"
-            style={[vs.text, ss.text, { fontWeight: theme.fontWeight.semibold }]}
+            style={[vs.text, ss.text, { fontWeight: theme.fontWeight.semibold }, labelStyle]}
           >
             {label}
           </Typography>

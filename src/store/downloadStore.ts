@@ -7,7 +7,7 @@ interface DownloadStore {
   downloads: DownloadItem[];
   addDownload: (item: Omit<DownloadItem, 'id' | 'status' | 'progress'>) => void;
   updateProgress: (messageId: string, progress: number) => void;
-  setStatus: (messageId: string, status: DownloadStatus, localUri?: string) => void;
+  setStatus: (messageId: string, status: DownloadStatus, localUri?: string, sizeBytes?: number) => void;
   removeDownload: (messageId: string) => void;
   isDownloaded: (messageId: string) => boolean;
   getDownload: (messageId: string) => DownloadItem | undefined;
@@ -46,6 +46,7 @@ export const useDownloadStore = create<DownloadStore>()(
                   ...d,
                   status,
                   localUri: localUri ?? d.localUri,
+                  sizeBytes: sizeBytes ?? d.sizeBytes,
                   progress: status === 'completed' ? 100 : d.progress,
                   downloadedAt:
                     status === 'completed' ? new Date().toISOString() : d.downloadedAt,

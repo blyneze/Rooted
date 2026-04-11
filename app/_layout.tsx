@@ -9,6 +9,15 @@ import * as SecureStore from 'expo-secure-store';
 import { View, StyleSheet } from 'react-native';
 import theme from '@/theme';
 import { AudioController } from '@/api/AudioController';
+import { useFonts } from '@expo-google-fonts/inter/useFonts';
+import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
+import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
+import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
+import { Inter_700Bold } from '@expo-google-fonts/inter/700Bold';
+import * as SplashScreen from 'expo-splash-screen';
+import { MediaOptionsModal } from '@/components/modals/MediaOptionsModal';
+
+SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,9 +49,26 @@ const tokenCache = {
   },
 };
 
-const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY ?? '';
+const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_d2lubmluZy13aWxkY2F0LTgwLmNsZXJrLmFjY291bnRzLmRldiQ';
 
 function RootLayoutInner() {
+  const [fontsLoaded, fontError] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
     <View style={styles.root}>
       <StatusBar style="light" />
@@ -82,7 +108,12 @@ function RootLayoutInner() {
           name="playlist/[id]"
           options={{ animation: 'slide_from_right', headerShown: false }}
         />
+        <Stack.Screen
+          name="video/[id]"
+          options={{ animation: 'slide_from_right', headerShown: false }}
+        />
       </Stack>
+      <MediaOptionsModal />
     </View>
   );
 }

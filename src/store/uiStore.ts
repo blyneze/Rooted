@@ -1,11 +1,17 @@
 import { create } from 'zustand';
-import type { LibraryFilter } from '@/types';
+import type { LibraryFilter, AudioMessage, VideoMessage } from '@/types';
+
+export type SelectedMediaOption = AudioMessage | VideoMessage | null;
 
 interface UIStore {
   libraryFilter: LibraryFilter;
   searchQuery: string;
   isSearchVisible: boolean;
   recentSearches: string[];
+  
+  // Media Options Modal state
+  selectedMediaForOptions: SelectedMediaOption;
+  isPlaylistModalVisible: boolean;
 
   setLibraryFilter: (filter: LibraryFilter) => void;
   setSearchQuery: (query: string) => void;
@@ -13,6 +19,10 @@ interface UIStore {
   hideSearch: () => void;
   addRecentSearch: (query: string) => void;
   clearRecentSearches: () => void;
+  
+  setSelectedMediaForOptions: (media: SelectedMediaOption) => void;
+  showPlaylistModal: () => void;
+  hidePlaylistModal: () => void;
 }
 
 export const useUIStore = create<UIStore>((set, get) => ({
@@ -20,6 +30,8 @@ export const useUIStore = create<UIStore>((set, get) => ({
   searchQuery: '',
   isSearchVisible: false,
   recentSearches: [],
+  selectedMediaForOptions: null,
+  isPlaylistModalVisible: false,
 
   setLibraryFilter: (filter) => set({ libraryFilter: filter }),
 
@@ -37,4 +49,10 @@ export const useUIStore = create<UIStore>((set, get) => ({
   },
 
   clearRecentSearches: () => set({ recentSearches: [] }),
+  
+  setSelectedMediaForOptions: (media) => set({ selectedMediaForOptions: media }),
+  
+  showPlaylistModal: () => set({ isPlaylistModalVisible: true }),
+  
+  hidePlaylistModal: () => set({ isPlaylistModalVisible: false }),
 }));

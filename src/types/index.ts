@@ -70,6 +70,25 @@ export interface AudioMessage {
   partNumber?: number;
 }
 
+// ── Video Message ─────────────────────────────────────────────────────────────
+
+export interface VideoMessage {
+  id: string;
+  title: string;
+  description: string;
+  youtubeId: string;
+  duration: number;           // seconds
+  speakerName: string;
+  speaker?: Speaker;
+  series?: Series;
+  topicTags: string[];
+  isFeatured: boolean;
+  isSaved: boolean;
+  publishedAt: string;        // ISO date string
+  playbackProgress?: number;  // 0-1 fraction
+  isPremium: boolean;
+}
+
 // ── Series ────────────────────────────────────────────────────────────────────
 
 export interface Series {
@@ -236,15 +255,13 @@ export interface AppNotification {
 
 // ── Search ────────────────────────────────────────────────────────────────────
 
-export type SearchResultType = 'message' | 'series' | 'book';
+export type SearchResultType = 'message' | 'series' | 'book' | 'video';
 
 export interface SearchResult {
   type: SearchResultType;
-  item: AudioMessage | Series | Book;
+  item: AudioMessage | Series | Book | VideoMessage;
 }
 
-export type SearchFilterType = 'all' | 'audio' | 'series' | 'books';
+export type SearchFilterType = 'all' | 'audio' | 'video' | 'series' | 'books';
 
-// ── Library ───────────────────────────────────────────────────────────────────
-
-export type LibraryFilter = 'all' | 'audio' | 'books' | 'series' | 'playlists';
+export type LibraryFilter = 'all' | 'audio' | 'videos' | 'books' | 'series' | 'playlists';

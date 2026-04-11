@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import * as FileSystem from 'expo-file-system/legacy';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
@@ -74,8 +75,24 @@ function DownloadRow({ item, onPlay, onDelete }: {
 }
 
 export default function DownloadsScreen() {
-  const { downloads } = useDownloadStore();
+  const { downloads, setStatus } = useDownloadStore();
   const { setCurrentMessage, setPlayerState } = useAudioStore();
+
+  // Retroactive size check for existing downloads without sizeBytes
+  useEffect(() => {
+    downloads.forEach(async (d) => {
+      if (d.status === 'completed' && !d.sizeBytes && d.localUri) {
+        try {
+          const info = await FileSystem.getInfoAsync(d.localUri, { size: true });
+          if (info.exists && !info.isDirectory) {
+            setStatus(d.messageId, 'completed', d.localUri, info.size);
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+    });
+  }, [downloads, setStatus]);
 
   const handlePlay = (item: DownloadItem) => {
     // Construct a temporary AudioMessage object from the DownloadItem

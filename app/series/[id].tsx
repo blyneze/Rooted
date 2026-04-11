@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { MessageListItem } from '@/components/content/MessageCard';
 import { useAudioStore } from '@/store/audioStore';
+import { useUIStore } from '@/store/uiStore';
 import theme from '@/theme';
 import type { AudioMessage, QueueItem } from '@/types';
 import { useSeriesById } from '@/api/queries';
@@ -20,6 +21,7 @@ import { SkeletonHero } from '@/components/ui/Skeleton';
 export default function SeriesDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { setCurrentMessage, setPlayerState, setQueue } = useAudioStore();
+  const { setSelectedMediaForOptions } = useUIStore();
   const [isSaved, setIsSaved] = useState(false);
 
   const { data: series, isLoading, error } = useSeriesById(id!);
@@ -62,9 +64,13 @@ export default function SeriesDetailScreen() {
     setPlayerState('playing');
   };
 
-  const handlePlayMessage = (message: AudioMessage) => {
-    setCurrentMessage(message);
-    setPlayerState('playing');
+  const handleMessagePress = (message: any) => {
+    if (message.youtubeId) {
+      router.push(`/video/${message.id}`);
+    } else {
+      setCurrentMessage(message);
+      setPlayerState('playing');
+    }
   };
 
   return (
@@ -90,7 +96,7 @@ export default function SeriesDetailScreen() {
               {series.name}
             </Typography>
             <Typography variant="bodySmall" style={{ color: 'rgba(255,255,255,0.7)' }}>
-              {series.messageCount} messages · {series.topics.slice(0, 2).join(', ')}
+              {series.messageCount} messages {series.topics?.length > 0 ? `· ${series.topics.slice(0, 2).join(', ')}` : ''}
             </Typography>
           </View>
         </View>
@@ -127,7 +133,7 @@ export default function SeriesDetailScreen() {
 
         {/* ── Topic tags ──────────────────────────────────────────────────── */}
         <View style={styles.tagsRow}>
-          {series.topics.map((topic) => (
+          {series.topics?.map((topic: string) => (
             <View key={topic} style={styles.tag}>
               <Typography variant="caption" color="secondary">{topic}</Typography>
             </View>
@@ -146,15 +152,22 @@ export default function SeriesDetailScreen() {
               </Typography>
             </View>
           ) : (
-            series.messages.map((msg, i) => (
-              <MessageListItem
-                key={msg.id}
-                message={msg}
-                onPress={handlePlayMessage}
-                showDivider={i < series.messages.length - 1}
-                index={i}
-              />
-            ))
+            series.messages.map((msg: any, i: number) => {
+              // Polyfill thumbnail for videos if coverUrl is missing
+              const cover = msg.coverUrl || (msg.youtubeId ? `https://img.youtube.com/vi/${msg.youtubeId}/hqdefault.jpg` : '');
+              const itemData = { ...msg, coverUrl: cover };
+              
+              return (
+                <MessageListItem
+                  key={msg.id}
+                  message={itemData}
+                  onPress={handleMessagePress}
+                  onMore={(m) => setSelectedMediaForOptions(m)}
+                  showDivider={i < series.messages.length - 1}
+                  index={i}
+                />
+              );
+            })
           )}
         </View>
 

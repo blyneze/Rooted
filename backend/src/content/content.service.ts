@@ -39,6 +39,11 @@ export class ContentService {
         take: 5,
       });
 
+      const videos = await this.prisma.videoMessage.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 6,
+      });
+
       return {
         featured: (featured || []).map(section => ({
           ...section,
@@ -55,6 +60,7 @@ export class ContentService {
         })),
         trending: trendingMessages || [],
         recent: recentMessages || [],
+        videos: videos || [],
         books: books || [],
       };
     } catch (error) {
@@ -64,7 +70,7 @@ export class ContentService {
   }
 
   async getMessages(query?: string) {
-    return this.prisma.audioMessage.findMany({
+    const audio = await this.prisma.audioMessage.findMany({
       where: query
         ? {
             OR: [
@@ -78,10 +84,31 @@ export class ContentService {
       },
       orderBy: { releaseDate: 'desc' },
     });
+
+    const video = await this.prisma.videoMessage.findMany({
+      where: query
+        ? {
+            OR: [
+              { title: { contains: query, mode: 'insensitive' } },
+              { speakerName: { contains: query, mode: 'insensitive' } },
+            ],
+          }
+        : undefined,
+      include: {
+        topics: { include: { topic: true } },
+      },
+      orderBy: { releaseDate: 'desc' },
+    });
+
+    return {
+      audio,
+      video,
+    };
   }
 
   async getMessageById(id: string) {
-    const message = await this.prisma.audioMessage.findUnique({
+    // Try audio first
+    const audioMessage = await this.prisma.audioMessage.findUnique({
       where: { id },
       include: {
         seriesItems: { include: { series: true } },
@@ -89,8 +116,20 @@ export class ContentService {
       },
     });
 
-    if (!message) throw new NotFoundException('Message not found');
-    return message;
+    if (audioMessage) return { ...audioMessage, type: 'audio' };
+
+    // Try video if audio not found
+    const videoMessage = await this.prisma.videoMessage.findUnique({
+      where: { id },
+      include: {
+        seriesItems: { include: { series: true } },
+        topics: { include: { topic: true } },
+      },
+    });
+
+    if (videoMessage) return { ...videoMessage, type: 'video' };
+
+    throw new NotFoundException('Message not found');
   }
 
   async getSeries() {
@@ -112,13 +151,25 @@ export class ContentService {
 
     if (!series) throw new NotFoundException('Series not found');
     
+    const messages = (series.messages || [])
+      .map((sm) => {
+        const item = sm.audio || sm.video;
+        if (!item) return null;
+        // Polyfill coverUrl for video messages using YouTube thumbnail
+        const coverUrl = (item as any).coverUrl
+          || ((item as any).youtubeId
+            ? `https://img.youtube.com/vi/${(item as any).youtubeId}/hqdefault.jpg`
+            : '');
+        return { ...item, coverUrl };
+      })
+      .filter(Boolean);
+
     return {
       ...series,
       name: series.title,
       artworkUrl: series.coverUrl,
-      messages: (series.messages || [])
-        .map((sm) => sm.audio || sm.video)
-        .filter(Boolean),
+      messageCount: messages.length,
+      messages,
     };
   }
 

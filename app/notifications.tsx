@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,21 +8,13 @@ import {
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { Image } from 'expo-image';
 import { Typography } from '@/components/ui/Typography';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { NOTIFICATIONS } from '@/constants/mockData';
 import theme from '@/theme';
 import type { AppNotification } from '@/types';
 
-const NOTIF_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
-  new_message: 'headset-outline',
-  new_series: 'albums-outline',
-  reminder: 'time-outline',
-  system: 'information-circle-outline',
-};
-
-function NotifRow({ item }: { item: AppNotification }) {
+function NotifRow({ item, onDelete }: { item: AppNotification; onDelete: () => void }) {
   const timeAgo = React.useMemo(() => {
     const diff = Date.now() - new Date(item.createdAt).getTime();
     const days = Math.floor(diff / 86400000);
@@ -35,85 +27,83 @@ function NotifRow({ item }: { item: AppNotification }) {
   return (
     <TouchableOpacity
       style={[styles.notifRow, !item.isRead && styles.notifRowUnread]}
-      activeOpacity={0.75}
+      activeOpacity={0.7}
       onPress={() => {
         if (item.actionRoute) router.push(item.actionRoute as any);
       }}
     >
-      {/* Icon or image */}
-      {item.imageUrl ? (
-        <Image source={{ uri: item.imageUrl }} style={styles.notifImage} contentFit="cover" transition={200} />
-      ) : (
-        <View style={styles.notifIconWrap}>
-          <Ionicons
-            name={NOTIF_ICONS[item.type] ?? 'notifications-outline'}
-            size={20}
-            color={theme.colors.accent}
-          />
-        </View>
-      )}
-
-      {/* Content */}
       <View style={styles.notifContent}>
-        <View style={styles.notifTitleRow}>
-          <Typography
-            variant="label"
-            numberOfLines={1}
-            style={[styles.notifTitle, !item.isRead && { color: theme.colors.textPrimary }]}
-          >
-            {item.title}
+        <View style={styles.notifHeader}>
+          <View style={styles.titleWrap}>
+            {!item.isRead && <View style={styles.unreadDot} />}
+            <Typography variant="body" weight={!item.isRead ? 'semibold' : 'regular'} style={styles.notifTitle}>
+              {item.title}
+            </Typography>
+          </View>
+          <Typography variant="caption" color="tertiary" style={styles.timeTag}>
+            {timeAgo}
           </Typography>
-          {!item.isRead && <View style={styles.unreadDot} />}
         </View>
-        <Typography variant="bodySmall" color="secondary" numberOfLines={2} style={styles.notifBody}>
+        <Typography variant="bodySmall" color="secondary" style={styles.notifBody}>
           {item.body}
         </Typography>
-        <Typography variant="caption" color="tertiary" style={styles.notifTime}>
-          {timeAgo}
-        </Typography>
       </View>
+      <TouchableOpacity onPress={onDelete} style={styles.deleteBtn} hitSlop={12}>
+        <Typography variant="caption" color="accent">Delete</Typography>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 }
 
 export default function NotificationsScreen() {
-  const unreadCount = NOTIFICATIONS.filter((n) => !n.isRead).length;
+  const [notifications, setNotifications] = useState<AppNotification[]>(NOTIFICATIONS);
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
+
+  const handleDelete = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+
+  const handleMarkAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={router.back} hitSlop={12}>
-          <Ionicons name="chevron-down" size={24} color={theme.colors.textSecondary} />
+        <TouchableOpacity onPress={router.back} hitSlop={12} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={24} color={theme.colors.textPrimary} />
         </TouchableOpacity>
-        <Typography variant="heading3">Notifications</Typography>
-        <TouchableOpacity hitSlop={12}>
-          <Typography variant="label" color="accent">Mark all read</Typography>
+        <View style={styles.headerCenter}>
+          <Typography variant="heading3">Notifications</Typography>
+          {unreadCount > 0 && (
+            <Typography variant="caption" color="tertiary" style={{ marginLeft: 6 }}>
+              ({unreadCount})
+            </Typography>
+          )}
+        </View>
+        
+        <TouchableOpacity hitSlop={12} onPress={handleMarkAllRead} disabled={unreadCount === 0}>
+          <Typography variant="label" color={unreadCount > 0 ? "accent" : "tertiary"}>
+            Mark read
+          </Typography>
         </TouchableOpacity>
       </View>
 
-      {unreadCount > 0 && (
-        <View style={styles.unreadBanner}>
-          <Typography variant="caption" color="accent">
-            {unreadCount} unread
-          </Typography>
-        </View>
-      )}
-
-      {NOTIFICATIONS.length === 0 ? (
+      {notifications.length === 0 ? (
         <EmptyState
           icon="notifications-outline"
           title="No notifications"
-          description="You're all caught up. Check back soon for new messages and updates."
+          description="You're all caught up. Check back soon for new messages."
         />
       ) : (
         <FlatList
-          data={NOTIFICATIONS}
+          data={notifications}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContent}
           ItemSeparatorComponent={() => <View style={styles.divider} />}
-          renderItem={({ item }) => <NotifRow item={item} />}
+          renderItem={({ item }) => <NotifRow item={item} onDelete={() => handleDelete(item.id)} />}
         />
       )}
     </SafeAreaView>
@@ -129,75 +119,69 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: theme.spacing.base,
-    paddingVertical: theme.spacing.md,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.surfaceMid,
+    paddingHorizontal: theme.spacing.xl,
+    paddingTop: theme.spacing.base,
+    paddingBottom: theme.spacing.lg,
   },
-  unreadBanner: {
-    paddingHorizontal: theme.spacing.base,
-    paddingVertical: theme.spacing.sm,
-    backgroundColor: theme.colors.accentMuted,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.accent,
+  backBtn: {
+    minWidth: 44,
+  },
+  headerCenter: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
   },
   listContent: {
     paddingBottom: 60,
   },
   notifRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingHorizontal: theme.spacing.base,
-    paddingVertical: theme.spacing.md,
-    gap: theme.spacing.md,
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.xl,
+    backgroundColor: theme.colors.background,
   },
   notifRowUnread: {
-    backgroundColor: 'rgba(255,59,48,0.04)',
-  },
-  notifImage: {
-    width: 48,
-    height: 48,
-    borderRadius: theme.radius.sm,
-    backgroundColor: theme.colors.surfaceMid,
-    flexShrink: 0,
-  },
-  notifIconWrap: {
-    width: 48,
-    height: 48,
-    borderRadius: theme.radius.sm,
-    backgroundColor: theme.colors.accentMuted,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
+    backgroundColor: 'rgba(0,0,0,0.01)', // Extremely subtle shift just to note state
   },
   notifContent: {
     flex: 1,
-    gap: 3,
+    paddingRight: theme.spacing.md,
   },
-  notifTitleRow: {
+  notifHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
+  titleWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  unreadDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: theme.colors.accent,
+    marginRight: 8,
   },
   notifTitle: {
     flex: 1,
-    color: theme.colors.textSecondary,
+    color: theme.colors.textPrimary,
   },
-  unreadDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: theme.colors.accent,
+  timeTag: {
+    marginLeft: 8,
   },
   notifBody: {
-    lineHeight: 19,
+    lineHeight: 22,
   },
-  notifTime: {
-    marginTop: 2,
+  deleteBtn: {
+    paddingVertical: 8,
+    paddingLeft: 12,
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: theme.colors.surfaceMid,
-    marginLeft: theme.spacing.base + 48 + theme.spacing.md,
+    backgroundColor: theme.colors.surfaceBorder,
+    marginHorizontal: theme.spacing.xl,
   },
 });
