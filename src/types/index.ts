@@ -79,6 +79,7 @@ export interface VideoMessage {
   youtubeId: string;
   duration: number;           // seconds
   speakerName: string;
+  coverUrl?: string;
   speaker?: Speaker;
   series?: Series;
   topicTags: string[];
