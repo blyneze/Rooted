@@ -4,10 +4,10 @@
     "slug": "rooted",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/whitebglogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/whitebglogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#0A0A0A"
     },
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/whitebglogo.png",
         "backgroundColor": "#0A0A0A"
       },
       "package": "com.blyneze.rooted",

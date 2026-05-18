@@ -68,7 +68,7 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
 
       <View style={styles.content}>
         <MotiImage
-          source={require('../../../assets/logo.png')}
+          source={require('../../../assets/whitebglogo.png')}
           from={{ 
             scale: 0.4, 
             opacity: 0,

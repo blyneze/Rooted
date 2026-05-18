@@ -1,0 +1,1311 @@
+{
+  "user": [],
+  "series": [
+    {
+      "id": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "title": "Greatness 30",
+      "description": "30 days of greatness with Pastor Japheth Joseph",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/series-cover/greatness30.jpg",
+      "createdAt": "2026-04-10T15:22:20.768Z",
+      "updatedAt": "2026-04-11T09:08:04.863Z"
+    }
+  ],
+  "topic": [
+    {
+      "id": "917e8439-d0ae-41e8-b10d-c02a81996d9d",
+      "name": "Faith"
+    },
+    {
+      "id": "515832db-0253-4061-966d-5918b994a4e8",
+      "name": "Prayer"
+    },
+    {
+      "id": "88c83cdd-f50c-4bc7-ba96-2b90267b4067",
+      "name": "Growth"
+    }
+  ],
+  "audioMessage": [
+    {
+      "id": "087fff5e-a6e3-4400-9a37-d3afc00e7dd3",
+      "title": "Look and Live",
+      "duration": 4928,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Look%20and%20Live.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f1.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-01T10:50:19.959Z",
+      "createdAt": "2026-04-10T10:50:19.962Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "2bfe9949-0fa8-4c7c-80e6-ed5a25fdaae7",
+      "title": "The zeal of the Lord: The Currency For Purpose",
+      "duration": 3338,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/THE%20ZEAL%20OF%20THE%20LORD%20-%20The%20Currency%20For%20Purpose.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f2.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-22T10:50:20.044Z",
+      "createdAt": "2026-04-10T10:50:20.047Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "0ad57cd2-1a9f-431c-9645-4af09ae16713",
+      "title": "Igniting Brilliant Fire: How to stay ignited through the year",
+      "duration": 3962,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Igniting_Brilliant_Fire_How_to_stay_ignited_through_the_year.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/pm5.webp",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-03T10:50:19.944Z",
+      "createdAt": "2026-04-10T10:50:19.947Z",
+      "updatedAt": "2026-04-10T13:43:17.164Z"
+    },
+    {
+      "id": "2e175d0d-685f-4b2d-a9d5-07badf28616e",
+      "title": "The Attitude of Gratitude",
+      "duration": 5267,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Attitude%20of%20Gratitude.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/p3.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-25T10:50:20.013Z",
+      "createdAt": "2026-04-10T10:50:20.016Z",
+      "updatedAt": "2026-04-10T13:49:38.618Z"
+    },
+    {
+      "id": "3b1bf152-b4d7-411a-8c30-48f0684efd16",
+      "title": "The Ecclesia",
+      "duration": 3389,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Ecclesia.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/p4.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-21T10:50:20.051Z",
+      "createdAt": "2026-04-10T10:50:20.054Z",
+      "updatedAt": "2026-04-10T13:49:38.618Z"
+    },
+    {
+      "id": "469f7cd4-fdda-4401-9bee-dccc6edfb465",
+      "title": "The Making of Altar",
+      "duration": 4932,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Making%20of%20Altar.mp3",
+      "coverUrl": "https://plus.unsplash.com/premium_photo-1711434824963-ca894373272e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJlfGVufDB8fDB8fHww",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-28T10:50:19.989Z",
+      "createdAt": "2026-04-10T10:50:19.992Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "01bc9d86-096e-4ac0-a8e5-2255911895fd",
+      "title": "Prescription for Acceptable Fast: Part 2",
+      "duration": 7026,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Prescription%20for%20Acceptable%20Fast%20-%20Part%202.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f5.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-27T10:50:19.998Z",
+      "createdAt": "2026-04-10T10:50:20.002Z",
+      "updatedAt": "2026-04-11T08:51:39.021Z"
+    },
+    {
+      "id": "ce7e6d5c-3a20-46ed-aa0d-82e04266f57d",
+      "title": "Faithbook: Doing the Impossible",
+      "duration": 6058,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Faithbook%20-%20Doing%20the%20Impossible.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/blog3.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-14T10:50:20.094Z",
+      "createdAt": "2026-04-10T10:50:20.098Z",
+      "updatedAt": "2026-04-11T08:51:39.021Z"
+    },
+    {
+      "id": "d3e2d3e0-b970-4f7a-b9df-6e3935c41c64",
+      "title": "God's Showpiece",
+      "duration": 3737,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/God's%20Showpiece.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f3.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-30T10:50:19.975Z",
+      "createdAt": "2026-04-10T10:50:19.978Z",
+      "updatedAt": "2026-04-11T08:56:22.853Z"
+    },
+    {
+      "id": "0b9348c9-073b-434c-82a1-953013bfb2d6",
+      "title": "Prophetic Visioning",
+      "duration": 6707,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Prophetic%20Visioning.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f6.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-15T10:50:20.088Z",
+      "createdAt": "2026-04-10T10:50:20.091Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "0f7248bf-5545-4fbe-a811-ffb10f3ecab8",
+      "title": "Prescription for Acceptable Fast",
+      "duration": 7026,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Prescription%20for%20Acceptable%20Fast%20%5B070126%5D.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f5.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-04T10:50:19.932Z",
+      "createdAt": "2026-04-10T10:50:19.936Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "10ce04b2-1d57-4e86-8cca-7c7bf7816564",
+      "title": "Sorted",
+      "duration": 5974,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Sorted%201.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f4.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-06T10:50:19.918Z",
+      "createdAt": "2026-04-10T10:50:19.921Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "4b3b6487-0792-4b53-8bac-e09d026435b8",
+      "title": "The Pitfalls of a Sent One",
+      "duration": 11127,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Pitfalls%20of%20a%20Sent%20One%20_%20CM%202025%20Day%203.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-31T10:50:19.968Z",
+      "createdAt": "2026-04-10T10:50:19.971Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "4a10c0f7-bd1d-40de-a970-30be07b1244e",
+      "title": "The Paradox of Purpose",
+      "duration": 4310,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Paradox%20of%20Purpose.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bmF0dXJlfGVufDB8fDB8fHww",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-13T10:50:20.102Z",
+      "createdAt": "2026-04-10T10:50:20.106Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "704c55ec-3456-47a5-86e2-66418ab16d8c",
+      "title": "The Pursuit of Purpose",
+      "duration": 4025,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Pursuit%20of%20Purpose%20-%20Part%201.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-12T10:50:20.112Z",
+      "createdAt": "2026-04-10T10:50:20.115Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "a43df307-7ec0-4d60-a7ae-216fd4106d1d",
+      "title": "Way-Word: Part 2",
+      "duration": 4275,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/WAY-WORD%20PART%202.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-02T10:50:19.951Z",
+      "createdAt": "2026-04-10T10:50:19.955Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "26efdb9a-403e-4f8d-81df-7bf325c4e0fe",
+      "title": "The power of the word: Part 2",
+      "duration": 4356,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/THE%20POWER%20OF%20THE%20WORD%20PART%202.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/f3.jpg",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-26T10:50:20.006Z",
+      "createdAt": "2026-04-10T10:50:20.009Z",
+      "updatedAt": "2026-04-10T13:10:23.611Z"
+    },
+    {
+      "id": "cc7a59d3-74e4-4565-9937-16634966cd8e",
+      "title": "Experiencing the Economy of Heaven",
+      "duration": 6291,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Experiencing%20the%20Economy%20of%20Heaven.mp3",
+      "coverUrl": "https://plus.unsplash.com/premium_photo-1673697239981-389164b7b87f?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-11T10:50:20.118Z",
+      "createdAt": "2026-04-10T10:50:20.121Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "77ab6457-a54e-4331-95e9-36a706d2dece",
+      "title": "The Pursuit of Purpose: Part 2",
+      "duration": 5330,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/The%20Pursuit%20of%20Purpose%20-%20Part%202.mp3",
+      "coverUrl": "https://plus.unsplash.com/premium_photo-1719943510748-4b4354fbcf56?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-20T10:50:20.057Z",
+      "createdAt": "2026-04-10T10:50:20.060Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "8a5ee78d-f8c5-4376-b011-2bfe33ef611c",
+      "title": "Until The Spirit Is Poured Out",
+      "duration": 7019,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Until%20The%20Spirit%20Is%20Poured%20Out.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-23T10:50:20.029Z",
+      "createdAt": "2026-04-10T10:50:20.034Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "8efa1804-9a28-4876-a947-ea031b9081df",
+      "title": "The zeal of the Lord: The Currency For Purpose: Part 2",
+      "duration": 3809,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/THE_ZEAL_OF_THE_LORD_The_Currency_For_Purpose_Part_2.mp3",
+      "coverUrl": "https://media.istockphoto.com/id/1137735594/photo/beautiful-bright-green-moss-grown-up-cover-the-rough-stones-and-on-the-floor-in-the-forest.webp?a=1&b=1&s=612x612&w=0&k=20&c=0vmfNe0g86IPhRtj8x5Xqg4toj_dRs-J27AeH6SEZ80=",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-07T10:50:19.910Z",
+      "createdAt": "2026-04-10T10:50:19.913Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "95f6af1a-7f12-47ac-82f2-bd1f2c932a8d",
+      "title": "Way-Word",
+      "duration": 4070,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/WAY-WORD%20PART%201.mp3",
+      "coverUrl": "https://media.istockphoto.com/id/2181735944/photo/natural-mountains-landscapes.webp?a=1&b=1&s=612x612&w=0&k=20&c=kXWPxrf8Gs_2e35F31rKlguPcI2JE2dtGQ58HS0-W7c=",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-29T10:50:19.982Z",
+      "createdAt": "2026-04-10T10:50:19.985Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "a9196f6a-0a4f-44c4-b61d-dbeabf207cdf",
+      "title": "Win-Win: How to make 2026 ",
+      "duration": 4788,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Win-Win_How%20to%20make%202026%20work.mp3",
+      "coverUrl": "https://media.istockphoto.com/id/2208884525/photo/leaf-surface-with-water-drops-macro-shallow-dofleaf-surface-with-water-drops-macro-shallow-dof.webp?a=1&b=1&s=612x612&w=0&k=20&c=kyf4qaqlMxNWC7Zu7As-kpZApWJB6EP-FYFTSQxQ5p0=",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-24T10:50:20.021Z",
+      "createdAt": "2026-04-10T10:50:20.024Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "b05a116c-7743-4878-a973-3d9e9c6dd4ae",
+      "title": "Why Revival Tarries",
+      "duration": 8375,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Why%20Revival%20Tarries.mp3",
+      "coverUrl": "https://plus.unsplash.com/premium_photo-1710849581742-f2151607c745?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-16T10:50:20.081Z",
+      "createdAt": "2026-04-10T10:50:20.085Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "b2f4a4a9-fe9f-46af-afc7-5cb47c607e57",
+      "title": "Agonizomai - Contending Fervently",
+      "duration": 4792,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/AGONIZOMAI%20-%20Contending%20Ferventlly.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-05T10:50:19.924Z",
+      "createdAt": "2026-04-10T10:50:19.928Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "b501ba5e-91d2-4a45-9bc2-39491fa09c66",
+      "title": "Altar Protocols",
+      "duration": 3452,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Altar%20Protocols.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1495584816685-4bdbf1b5057e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-17T10:50:20.075Z",
+      "createdAt": "2026-04-10T10:50:20.078Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "c52a5688-9f65-4b42-93c6-28449861fa04",
+      "title": "Behind the Year: The Calculus of a Complete Year",
+      "duration": 7138,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Behind%20the%20Year%20-%20The%20Calculus%20of%20a%20Complete%20Year.mp3",
+      "coverUrl": "https://images.unsplash.com/photo-1508349937151-22b68b72d5b1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-03-19T10:50:20.063Z",
+      "createdAt": "2026-04-10T10:50:20.066Z",
+      "updatedAt": "2026-04-10T14:13:18.988Z"
+    },
+    {
+      "id": "ea7c22a3-bb40-4ba5-bbc1-20c971eb8d3d",
+      "title": "Hardness of Heart: Part 1",
+      "duration": 5783,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Hardness%20of%20Heart%20-%20Part%201.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/hoh2.png",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-09T10:50:19.862Z",
+      "createdAt": "2026-04-10T10:50:19.870Z",
+      "updatedAt": "2026-04-10T14:31:49.679Z"
+    },
+    {
+      "id": "ea8446d0-370d-4bc8-bf96-a31543bc3890",
+      "title": "Hardness of Heart: Part 2",
+      "duration": 1200,
+      "audioUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio/Hardness%20of%20Heart%20-%20Part%202.mp3",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/audio-cover/hoh2.png",
+      "speakerName": "Pst Japheth Joseph",
+      "releaseDate": "2026-04-08T10:50:19.901Z",
+      "createdAt": "2026-04-10T10:50:19.905Z",
+      "updatedAt": "2026-04-10T14:31:49.679Z"
+    }
+  ],
+  "videoMessage": [
+    {
+      "id": "b1372fd4-55fa-41a8-a040-efeed5f91b19",
+      "title": "30 Days of Greatness with Pastor Japheth Joseph | Day 1",
+      "description": "30 Days of Greatness with Pastor Japheth Joseph | Day 1",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.416Z",
+      "createdAt": "2026-04-11T10:07:11.427Z",
+      "updatedAt": "2026-04-11T10:07:11.427Z",
+      "youtubeId": "Tw8WEJ1oygU"
+    },
+    {
+      "id": "0c826313-89b8-41e3-b55b-62adf0a57424",
+      "title": "Greatness 30 with Pastor Japheth Joseph | Day 2",
+      "description": "Greatness 30 with Pastor Japheth Joseph | Day 2",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.487Z",
+      "createdAt": "2026-04-11T10:07:11.488Z",
+      "updatedAt": "2026-04-11T10:07:11.488Z",
+      "youtubeId": "oO_PVqfgAfk"
+    },
+    {
+      "id": "f1f14319-4180-49f6-8589-87051a02532e",
+      "title": "Greatness 30: What is Greatness? | Day 3 | Pastor Japheth Joseph",
+      "description": "Greatness 30: What is Greatness? | Day 3 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.497Z",
+      "createdAt": "2026-04-11T10:07:11.499Z",
+      "updatedAt": "2026-04-11T10:07:11.499Z",
+      "youtubeId": "04TrsotTFMU"
+    },
+    {
+      "id": "e0785370-dca9-465b-bddd-e4d5183f010f",
+      "title": "Greatness 30: The Tokens of Greatness | Day 4 | Pastor Japheth Joseph",
+      "description": "Greatness 30: The Tokens of Greatness | Day 4 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.506Z",
+      "createdAt": "2026-04-11T10:07:11.507Z",
+      "updatedAt": "2026-04-11T10:07:11.507Z",
+      "youtubeId": "OzRx5_fU9q0"
+    },
+    {
+      "id": "4aeeea36-7adb-4077-bda0-e112a7300b35",
+      "title": "Greatness 30: The Tokens of Greatness 2 | Day 5 | Pastor Japheth Joseph",
+      "description": "Greatness 30: The Tokens of Greatness 2 | Day 5 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.513Z",
+      "createdAt": "2026-04-11T10:07:11.515Z",
+      "updatedAt": "2026-04-11T10:07:11.515Z",
+      "youtubeId": "FgncpucRHfw"
+    },
+    {
+      "id": "187ae61a-4019-4e97-856f-e44e584283bc",
+      "title": "Greatness 30: The Seed of Greatness | Day 6 | Pastor Japheth Joseph",
+      "description": "Greatness 30: The Seed of Greatness | Day 6 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.520Z",
+      "createdAt": "2026-04-11T10:07:11.521Z",
+      "updatedAt": "2026-04-11T10:07:11.521Z",
+      "youtubeId": "H99OFVihE4Q"
+    },
+    {
+      "id": "18d51d2a-c5f9-430c-ae36-52745e300eae",
+      "title": "Greatness 30: Develop Your Mind | Day 7 | Pastor Japheth Joseph",
+      "description": "Greatness 30: Develop Your Mind | Day 7 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.529Z",
+      "createdAt": "2026-04-11T10:07:11.530Z",
+      "updatedAt": "2026-04-11T10:07:11.530Z",
+      "youtubeId": "IjgHUihGq1I"
+    },
+    {
+      "id": "6a260251-c447-45cf-9ffe-d994d5118999",
+      "title": "This is why many are not great! | Greatness 30: Day 8 | Pastor Japheth Joseph",
+      "description": "This is why many are not great! | Greatness 30: Day 8 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.537Z",
+      "createdAt": "2026-04-11T10:07:11.538Z",
+      "updatedAt": "2026-04-11T10:07:11.538Z",
+      "youtubeId": "o3v46vgo8bM"
+    },
+    {
+      "id": "13c54c71-bb82-4e4b-afb1-4c89c60ace39",
+      "title": "See what happens when God gives men a name | Greatness 30: Day 9 | Pastor Japheth Joseph",
+      "description": "See what happens when God gives men a name | Greatness 30: Day 9 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.544Z",
+      "createdAt": "2026-04-11T10:07:11.546Z",
+      "updatedAt": "2026-04-11T10:07:11.546Z",
+      "youtubeId": "RVFOt_QYOCg"
+    },
+    {
+      "id": "6534e6a5-bae8-4e65-890b-9ac3f98733d1",
+      "title": "God lifts men | Greatness 30: Day 10 | Pastor Japheth Joseph",
+      "description": "God lifts men | Greatness 30: Day 10 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.553Z",
+      "createdAt": "2026-04-11T10:07:11.554Z",
+      "updatedAt": "2026-04-11T10:07:11.554Z",
+      "youtubeId": "_c4mkGWtA7w"
+    },
+    {
+      "id": "33f54c6f-b335-4dd0-bc12-2c4390eae32f",
+      "title": "Access to the secrets of God | Greatness 30: Day 11 | Pastor Japheth Joseph",
+      "description": "Access to the secrets of God | Greatness 30: Day 11 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.563Z",
+      "createdAt": "2026-04-11T10:07:11.565Z",
+      "updatedAt": "2026-04-11T10:07:11.565Z",
+      "youtubeId": "brLR5BeXXNI"
+    },
+    {
+      "id": "c1ba14bc-2e74-4a64-95fb-39c82a17ebcb",
+      "title": "Why you need favour | Greatness 30: Day 12 | Pastor Japheth Joseph",
+      "description": "Why you need favour | Greatness 30: Day 12 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.572Z",
+      "createdAt": "2026-04-11T10:07:11.573Z",
+      "updatedAt": "2026-04-11T10:07:11.573Z",
+      "youtubeId": "mUGVPvVgSGQ"
+    },
+    {
+      "id": "04b79979-db34-45f0-af03-627a9ac70338",
+      "title": "The reason you should have a mentor | Greatness 30: Day 13 | Pastor Japheth Joseph",
+      "description": "The reason you should have a mentor | Greatness 30: Day 13 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.580Z",
+      "createdAt": "2026-04-11T10:07:11.581Z",
+      "updatedAt": "2026-04-11T10:07:11.581Z",
+      "youtubeId": "B3GLAFUc3ew"
+    },
+    {
+      "id": "2af2b6b3-6f8d-4cd0-811e-e9b1ebac23a5",
+      "title": "Go for Power | Greatness 30: Day 14 | Pastor Japheth Joseph",
+      "description": "Go for Power | Greatness 30: Day 14 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.587Z",
+      "createdAt": "2026-04-11T10:07:11.588Z",
+      "updatedAt": "2026-04-11T10:07:11.588Z",
+      "youtubeId": "bVv00oqnbGs"
+    },
+    {
+      "id": "c7517c64-7e2d-4712-ae61-483ab426cb89",
+      "title": "See why consecration matters as you journey this year | Greatness 30: Day 15 | Pastor Japheth Joseph",
+      "description": "See why consecration matters as you journey this year | Greatness 30: Day 15 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.594Z",
+      "createdAt": "2026-04-11T10:07:11.595Z",
+      "updatedAt": "2026-04-11T10:07:11.595Z",
+      "youtubeId": "rWareH6b59E"
+    },
+    {
+      "id": "1d2a88b0-98e2-4080-a61e-42242ea175e4",
+      "title": "Please listen to this | Greatness 30 with Pastor Japheth Joseph",
+      "description": "Please listen to this | Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.602Z",
+      "createdAt": "2026-04-11T10:07:11.603Z",
+      "updatedAt": "2026-04-11T10:07:11.603Z",
+      "youtubeId": "FLgbsEATxHU"
+    },
+    {
+      "id": "f8598128-370c-4f54-bc84-aca8742ad4cd",
+      "title": "This is why you should take contentment serious | Greatness 30: Day 15 | Pastor Japheth Joseph",
+      "description": "This is why you should take contentment serious | Greatness 30: Day 15 | Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.612Z",
+      "createdAt": "2026-04-11T10:07:11.613Z",
+      "updatedAt": "2026-04-11T10:07:11.613Z",
+      "youtubeId": "eAOlyDednb0"
+    },
+    {
+      "id": "76117fe9-ff06-4d33-970d-f0b9080202c8",
+      "title": "Only Be Courageous... || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Only Be Courageous... || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.620Z",
+      "createdAt": "2026-04-11T10:07:11.621Z",
+      "updatedAt": "2026-04-11T10:07:11.621Z",
+      "youtubeId": "xXxIiduP_TU"
+    },
+    {
+      "id": "51baafd0-1009-4316-b857-bb6f5ececf24",
+      "title": "This is why you should be relevant this year | Greatness 30 with Pastor Japheth Joseph",
+      "description": "This is why you should be relevant this year | Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.628Z",
+      "createdAt": "2026-04-11T10:07:11.629Z",
+      "updatedAt": "2026-04-11T10:07:11.629Z",
+      "youtubeId": "TlG_2oBNsTs"
+    },
+    {
+      "id": "775335d2-9724-4c4e-883a-86dd34ce6996",
+      "title": "The Power of Vision || Greatness 30 with Pastor Japheth Joseph",
+      "description": "The Power of Vision || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.636Z",
+      "createdAt": "2026-04-11T10:07:11.637Z",
+      "updatedAt": "2026-04-11T10:07:11.637Z",
+      "youtubeId": "NfLoUwbaeew"
+    },
+    {
+      "id": "15fe330b-23e7-404a-babf-3bdd0e6b544b",
+      "title": "Go for illumination || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Go for illumination || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.644Z",
+      "createdAt": "2026-04-11T10:07:11.646Z",
+      "updatedAt": "2026-04-11T10:07:11.646Z",
+      "youtubeId": "pqjLDmr2oSw"
+    },
+    {
+      "id": "6366c024-6e81-4aa3-b470-acc0bb569c85",
+      "title": "Go for wisdom || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Go for wisdom || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.652Z",
+      "createdAt": "2026-04-11T10:07:11.653Z",
+      "updatedAt": "2026-04-11T10:07:11.653Z",
+      "youtubeId": "R2iVK8-bGnU"
+    },
+    {
+      "id": "aa94bcd5-a314-4afd-81a9-d6019ba1d9bf",
+      "title": "Habits that can hinder greatness | Greatness 30 with Pastor Japheth Joseph",
+      "description": "Habits that can hinder greatness | Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.659Z",
+      "createdAt": "2026-04-11T10:07:11.660Z",
+      "updatedAt": "2026-04-11T10:07:11.660Z",
+      "youtubeId": "lOHrz4hlUBA"
+    },
+    {
+      "id": "0cd5e6ca-6844-4514-bfbf-09586608ee97",
+      "title": "Exercise yourself || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Exercise yourself || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.669Z",
+      "createdAt": "2026-04-11T10:07:11.670Z",
+      "updatedAt": "2026-04-11T10:07:11.670Z",
+      "youtubeId": "JJ9h5ipU8xM"
+    },
+    {
+      "id": "bd59593d-12e0-45ec-bb1b-c00550c24769",
+      "title": "Develop Passion || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Develop Passion || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.677Z",
+      "createdAt": "2026-04-11T10:07:11.678Z",
+      "updatedAt": "2026-04-11T10:07:11.678Z",
+      "youtubeId": "Y_Pk9X6p6_M"
+    },
+    {
+      "id": "afc5c558-c52a-406f-aec9-3b8d4906a5f7",
+      "title": "Don't Quench your Passion || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Don't Quench your Passion || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.685Z",
+      "createdAt": "2026-04-11T10:07:11.686Z",
+      "updatedAt": "2026-04-11T10:07:11.686Z",
+      "youtubeId": "LkXLjjRFAAw"
+    },
+    {
+      "id": "962b3820-d61b-47dc-98f5-dad53b743f0a",
+      "title": "Please listen to this || Greatness30 with Pastor Japheth Joseph",
+      "description": "Please listen to this || Greatness30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.691Z",
+      "createdAt": "2026-04-11T10:07:11.692Z",
+      "updatedAt": "2026-04-11T10:07:11.692Z",
+      "youtubeId": "jEqXMKUkykY"
+    },
+    {
+      "id": "1211ffe8-2087-4f85-b5a7-2321149f1447",
+      "title": "Trust in God || Greatness30 with Pastor Japheth Joseph",
+      "description": "Trust in God || Greatness30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.700Z",
+      "createdAt": "2026-04-11T10:07:11.701Z",
+      "updatedAt": "2026-04-11T10:07:11.701Z",
+      "youtubeId": "cGTMc7ar0X0"
+    },
+    {
+      "id": "cbd920e5-c35e-4661-8a9e-0d4f8191d3b8",
+      "title": "Just do it! || Greatness 30 with Pastor Japheth Joseph",
+      "description": "Just do it! || Greatness 30 with Pastor Japheth Joseph",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:07:11.706Z",
+      "createdAt": "2026-04-11T10:07:11.707Z",
+      "updatedAt": "2026-04-11T10:07:11.707Z",
+      "youtubeId": "k7yJLM8xiSY"
+    },
+    {
+      "id": "53a57d07-ed06-4e11-9826-10d020f94aa9",
+      "title": "Holy Spirit Service with Pastor Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.605Z",
+      "createdAt": "2026-04-11T10:50:11.612Z",
+      "updatedAt": "2026-04-11T10:50:11.612Z",
+      "youtubeId": "P53Iv2NKdLg"
+    },
+    {
+      "id": "16f57356-d103-4bf8-9067-8f765f45beaf",
+      "title": "The Pursuit of Purpose - Securing Eternal Relevance || Pst. Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.688Z",
+      "createdAt": "2026-04-11T10:50:11.691Z",
+      "updatedAt": "2026-04-11T10:50:11.691Z",
+      "youtubeId": "F1d-OE5ucnc"
+    },
+    {
+      "id": "5e3698a1-a8f3-4474-abd6-3b18aca62d9e",
+      "title": "The Making of an Altar with Pastor Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.696Z",
+      "createdAt": "2026-04-11T10:50:11.699Z",
+      "updatedAt": "2026-04-11T10:50:11.699Z",
+      "youtubeId": "AoTAOGgGha0"
+    },
+    {
+      "id": "1e9a8aa5-af2c-481c-b341-2b2c2c848578",
+      "title": "The Last Days Functionaries - Pastor Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.704Z",
+      "createdAt": "2026-04-11T10:50:11.707Z",
+      "updatedAt": "2026-04-11T10:50:11.707Z",
+      "youtubeId": "4gKAHpXK11o"
+    },
+    {
+      "id": "e1dec78d-3699-4df1-b404-1790c5da5170",
+      "title": "The Spirit of Prophecy | Pastor Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.715Z",
+      "createdAt": "2026-04-11T10:50:11.717Z",
+      "updatedAt": "2026-04-11T10:50:11.717Z",
+      "youtubeId": "bb-Tc58-vJ8"
+    },
+    {
+      "id": "8a1b16ad-2922-4c14-b6cd-e740a2c9673c",
+      "title": "The Mystery of Altars - Pastor Japheth Joseph",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.728Z",
+      "createdAt": "2026-04-11T10:50:11.730Z",
+      "updatedAt": "2026-04-11T10:50:11.730Z",
+      "youtubeId": "jZmQp8xUZN8"
+    },
+    {
+      "id": "f55e0073-5b4b-4eab-a387-fe49022e593d",
+      "title": "DOES GOD KILL? || UNSHACKLED SUNDAY || PASTOR JAPHETH JOSEPH",
+      "description": "",
+      "duration": 3600,
+      "videoUrl": null,
+      "coverUrl": null,
+      "speakerName": "Pastor Japheth Joseph",
+      "releaseDate": "2026-04-11T10:50:11.736Z",
+      "createdAt": "2026-04-11T10:50:11.738Z",
+      "updatedAt": "2026-04-11T10:50:11.738Z",
+      "youtubeId": "TxmmFEZapfE"
+    }
+  ],
+  "book": [
+    {
+      "id": "2942ebce-6d8e-412a-8a04-a896f83f86ad",
+      "title": "The Vow",
+      "author": "The Japheths",
+      "description": "Heart notes to singles, courting and newlyweds",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/book-cover/book3.jpeg",
+      "epubUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "audioUrl": null,
+      "createdAt": "2026-04-10T10:50:20.358Z",
+      "updatedAt": "2026-04-10T11:45:24.395Z"
+    },
+    {
+      "id": "561c3db8-3a59-487d-b311-d41e236df361",
+      "title": "Faith is: Rewriting your faith story",
+      "author": "Pst Japheth Joseph",
+      "description": "Rewriting your faith story",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/book-cover/book2.jpg",
+      "epubUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "audioUrl": null,
+      "createdAt": "2026-04-10T10:50:20.362Z",
+      "updatedAt": "2026-04-10T11:45:24.395Z"
+    },
+    {
+      "id": "746b4d25-ae79-4896-8678-28f838ef83b8",
+      "title": "Green Pastures",
+      "author": "Pst Japheth Joseph",
+      "description": "Finding and fulfilling God's purpose for your life",
+      "coverUrl": "https://pub-242a9d59d17a42ac9b65cdbbb323e42b.r2.dev/book-cover/book1.jpg",
+      "epubUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+      "createdAt": "2026-04-10T10:50:20.348Z",
+      "updatedAt": "2026-04-10T11:52:11.808Z"
+    }
+  ],
+  "featuredSection": [
+    {
+      "id": "0d6a5531-8f2d-4e98-ac2b-63ea12ad76b4",
+      "title": "Featured Messages",
+      "orderIndex": 0
+    },
+    {
+      "id": "393f95a2-9f9d-4f70-8b4e-8a4201e6eb59",
+      "title": "Trending Teachings",
+      "orderIndex": 1
+    },
+    {
+      "id": "1b2614a8-9c32-413d-91af-883a7fdafa44",
+      "title": "Featured Messages",
+      "orderIndex": 0
+    },
+    {
+      "id": "9cec77a9-5ede-4ef2-8111-e6592108e62e",
+      "title": "Trending Teachings",
+      "orderIndex": 1
+    },
+    {
+      "id": "536857c4-24eb-4ee9-8da8-363ddfb8d279",
+      "title": "Featured Messages",
+      "orderIndex": 0
+    },
+    {
+      "id": "3df8af22-b560-4d85-bc05-8fb360b02f9e",
+      "title": "Trending Teachings",
+      "orderIndex": 1
+    }
+  ],
+  "seriesMessage": [
+    {
+      "id": "132cf5df-e0ec-40d0-a4d0-690c005b4b2c",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "b1372fd4-55fa-41a8-a040-efeed5f91b19",
+      "orderIndex": 1
+    },
+    {
+      "id": "5509493e-90bc-4be7-8e60-24570e4863e0",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "0c826313-89b8-41e3-b55b-62adf0a57424",
+      "orderIndex": 2
+    },
+    {
+      "id": "a15c4f83-6539-4d3b-9c6b-dda7f0c7db3c",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "f1f14319-4180-49f6-8589-87051a02532e",
+      "orderIndex": 3
+    },
+    {
+      "id": "62f27299-70e2-4058-bcda-f26f15cec9ef",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "e0785370-dca9-465b-bddd-e4d5183f010f",
+      "orderIndex": 4
+    },
+    {
+      "id": "7eac1dfc-881f-489e-ad46-15777871a6b5",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "4aeeea36-7adb-4077-bda0-e112a7300b35",
+      "orderIndex": 5
+    },
+    {
+      "id": "7673611e-eb0d-437d-af3f-d61329bb2e94",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "187ae61a-4019-4e97-856f-e44e584283bc",
+      "orderIndex": 6
+    },
+    {
+      "id": "e814c9fa-f963-43fc-b743-16f276fc7198",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "18d51d2a-c5f9-430c-ae36-52745e300eae",
+      "orderIndex": 7
+    },
+    {
+      "id": "d73f0c88-f5ab-4962-99e8-74c70db5a59c",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "6a260251-c447-45cf-9ffe-d994d5118999",
+      "orderIndex": 8
+    },
+    {
+      "id": "3bd0cf17-fb44-428e-b23a-7e92ab8fff95",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "13c54c71-bb82-4e4b-afb1-4c89c60ace39",
+      "orderIndex": 9
+    },
+    {
+      "id": "322400d8-6093-4bf7-9197-9674e8045118",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "6534e6a5-bae8-4e65-890b-9ac3f98733d1",
+      "orderIndex": 10
+    },
+    {
+      "id": "7b9a077e-5d6b-46c9-acf9-e3d6e194c971",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "33f54c6f-b335-4dd0-bc12-2c4390eae32f",
+      "orderIndex": 11
+    },
+    {
+      "id": "a4e28e70-7e63-4083-8a5b-59ff6bcdc773",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "c1ba14bc-2e74-4a64-95fb-39c82a17ebcb",
+      "orderIndex": 12
+    },
+    {
+      "id": "bde935d0-1e02-41f2-9c76-ab869548ab5d",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "04b79979-db34-45f0-af03-627a9ac70338",
+      "orderIndex": 13
+    },
+    {
+      "id": "4f5f3fc3-89e9-4349-ae3b-66f73ab15820",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "2af2b6b3-6f8d-4cd0-811e-e9b1ebac23a5",
+      "orderIndex": 14
+    },
+    {
+      "id": "aeb99103-573b-4978-927a-363fab26b1ab",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "c7517c64-7e2d-4712-ae61-483ab426cb89",
+      "orderIndex": 15
+    },
+    {
+      "id": "68ee7643-88d8-43c1-ace4-a25f4d781961",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "1d2a88b0-98e2-4080-a61e-42242ea175e4",
+      "orderIndex": 16
+    },
+    {
+      "id": "ce4db46f-ba69-4476-83d4-658f76f763c3",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "f8598128-370c-4f54-bc84-aca8742ad4cd",
+      "orderIndex": 17
+    },
+    {
+      "id": "eea68e3a-252e-42b8-9c5b-5f95a703bb3b",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "76117fe9-ff06-4d33-970d-f0b9080202c8",
+      "orderIndex": 18
+    },
+    {
+      "id": "1d22d880-569e-4bae-94df-f55e4ba9876d",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "51baafd0-1009-4316-b857-bb6f5ececf24",
+      "orderIndex": 19
+    },
+    {
+      "id": "f9c4cef5-6f68-466d-bf30-1021140c0bd4",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "775335d2-9724-4c4e-883a-86dd34ce6996",
+      "orderIndex": 20
+    },
+    {
+      "id": "5355929f-20d2-455b-8249-bf4a6f24e118",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "15fe330b-23e7-404a-babf-3bdd0e6b544b",
+      "orderIndex": 21
+    },
+    {
+      "id": "49f88f7d-de30-4648-96b5-b7a783f4064d",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "6366c024-6e81-4aa3-b470-acc0bb569c85",
+      "orderIndex": 22
+    },
+    {
+      "id": "1d75d9d8-4b90-44ab-877c-917f7604c338",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "aa94bcd5-a314-4afd-81a9-d6019ba1d9bf",
+      "orderIndex": 23
+    },
+    {
+      "id": "2535ccb4-3726-4038-a341-4a0414c22a8a",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "0cd5e6ca-6844-4514-bfbf-09586608ee97",
+      "orderIndex": 24
+    },
+    {
+      "id": "8ee97b8b-7935-49be-a3d7-7a6c7bd829a6",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "bd59593d-12e0-45ec-bb1b-c00550c24769",
+      "orderIndex": 25
+    },
+    {
+      "id": "b1d0bd28-f8cc-4ba7-86be-d781dd4fdea5",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "afc5c558-c52a-406f-aec9-3b8d4906a5f7",
+      "orderIndex": 26
+    },
+    {
+      "id": "b7919442-8af8-449b-bc6e-ffe13799f070",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "962b3820-d61b-47dc-98f5-dad53b743f0a",
+      "orderIndex": 27
+    },
+    {
+      "id": "fd898375-9e4a-4b5a-a91c-55ce9fda6b45",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "1211ffe8-2087-4f85-b5a7-2321149f1447",
+      "orderIndex": 28
+    },
+    {
+      "id": "beb96a27-03f9-4c73-893c-b218f11e24da",
+      "seriesId": "201e3a40-59b7-4879-a51c-5e377b321a14",
+      "audioId": null,
+      "videoId": "cbd920e5-c35e-4661-8a9e-0d4f8191d3b8",
+      "orderIndex": 29
+    }
+  ],
+  "featuredSectionItem": [
+    {
+      "id": "15f0206b-0671-4c4c-b0ff-cff3730705b5",
+      "sectionId": "0d6a5531-8f2d-4e98-ac2b-63ea12ad76b4",
+      "audioId": "ea7c22a3-bb40-4ba5-bbc1-20c971eb8d3d",
+      "videoId": null,
+      "bookId": null,
+      "orderIndex": 0
+    },
+    {
+      "id": "65a78609-4738-447e-9de3-60accca82d94",
+      "sectionId": "393f95a2-9f9d-4f70-8b4e-8a4201e6eb59",
+      "audioId": "8efa1804-9a28-4876-a947-ea031b9081df",
+      "videoId": null,
+      "bookId": null,
+      "orderIndex": 0
+    },
+    {
+      "id": "b3d499fd-2c00-4f01-abe6-b4c6659fa056",
+      "sectionId": "393f95a2-9f9d-4f70-8b4e-8a4201e6eb59",
+      "audioId": "10ce04b2-1d57-4e86-8cca-7c7bf7816564",
+      "videoId": null,
+      "bookId": null,
+      "orderIndex": 1
+    },
+    {
+      "id": "6ed62b29-4eaa-441d-af30-cede3561e917",
+      "sectionId": "393f95a2-9f9d-4f70-8b4e-8a4201e6eb59",
+      "audioId": null,
+      "videoId": null,
+      "bookId": "746b4d25-ae79-4896-8678-28f838ef83b8",
+      "orderIndex": 2
+    }
+  ],
+  "messageTopic": [
+    {
+      "id": "96f7bba8-24fe-4437-80ac-c0c882b3bfbe",
+      "audioId": "ea7c22a3-bb40-4ba5-bbc1-20c971eb8d3d",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "7bd67bc5-6c86-4d6d-969d-3532a43255ee",
+      "audioId": "ea8446d0-370d-4bc8-bf96-a31543bc3890",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "969607a2-1d5a-4e3b-a78a-109126fa9307",
+      "audioId": "8efa1804-9a28-4876-a947-ea031b9081df",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "ceaf13ef-93b9-4693-b9a0-827d1f8998fb",
+      "audioId": "10ce04b2-1d57-4e86-8cca-7c7bf7816564",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "f3457443-ceaa-49c0-8c78-32dd1dee56c9",
+      "audioId": "b2f4a4a9-fe9f-46af-afc7-5cb47c607e57",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "95affa74-fa4d-442f-b631-6fa627536fb2",
+      "audioId": "0f7248bf-5545-4fbe-a811-ffb10f3ecab8",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "789c186f-697d-4a8f-abce-3560d68a1ebc",
+      "audioId": "0ad57cd2-1a9f-431c-9645-4af09ae16713",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "2f132180-2ec1-4639-aad3-9b6d29a23b02",
+      "audioId": "a43df307-7ec0-4d60-a7ae-216fd4106d1d",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "39e71c60-4173-4354-ba75-966f11b22c8e",
+      "audioId": "087fff5e-a6e3-4400-9a37-d3afc00e7dd3",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "7f55293d-3797-47fd-9eda-9c8e2dc15d72",
+      "audioId": "4b3b6487-0792-4b53-8bac-e09d026435b8",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "2af9b8de-ca54-4694-9379-8f1bfec9821a",
+      "audioId": "d3e2d3e0-b970-4f7a-b9df-6e3935c41c64",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "4376b97a-4215-4884-8336-3d6618fac637",
+      "audioId": "95f6af1a-7f12-47ac-82f2-bd1f2c932a8d",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "df436018-a182-4543-a044-99b35d3ed462",
+      "audioId": "469f7cd4-fdda-4401-9bee-dccc6edfb465",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "308bc4a7-456e-4a3e-8ade-2e3b903e3057",
+      "audioId": "01bc9d86-096e-4ac0-a8e5-2255911895fd",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "67133b8a-6c73-49aa-a772-eec72f8df29e",
+      "audioId": "26efdb9a-403e-4f8d-81df-7bf325c4e0fe",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "6b860634-0783-40e6-93f5-01f69db576d1",
+      "audioId": "2e175d0d-685f-4b2d-a9d5-07badf28616e",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "6c606b8c-5d6f-4443-923d-cbf6088a569f",
+      "audioId": "a9196f6a-0a4f-44c4-b61d-dbeabf207cdf",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "400ca9d1-8090-4cb3-9724-661391812fcd",
+      "audioId": "8a5ee78d-f8c5-4376-b011-2bfe33ef611c",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "2129b807-e470-4f9f-89ba-f5aebd458f4f",
+      "audioId": "2bfe9949-0fa8-4c7c-80e6-ed5a25fdaae7",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "3591e797-f7fe-4102-8c70-c4d9b64f145a",
+      "audioId": "3b1bf152-b4d7-411a-8c30-48f0684efd16",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "baa2dca2-6b74-4251-b8a1-bf4c632d6b62",
+      "audioId": "77ab6457-a54e-4331-95e9-36a706d2dece",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "cbcef5bc-379a-4cb5-94c9-aba652ae247b",
+      "audioId": "c52a5688-9f65-4b42-93c6-28449861fa04",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "9fa0b6e5-fd8c-4f2d-ad47-1e5615848917",
+      "audioId": "b501ba5e-91d2-4a45-9bc2-39491fa09c66",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "1ad8e788-ea54-4e1c-92e0-fa15dba18d5e",
+      "audioId": "b05a116c-7743-4878-a973-3d9e9c6dd4ae",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "8193a3fb-5a6d-46dc-ba6d-34d0d6b53b65",
+      "audioId": "0b9348c9-073b-434c-82a1-953013bfb2d6",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "4d96dc4a-529a-4e73-8838-2b45bb9fc4a6",
+      "audioId": "ce7e6d5c-3a20-46ed-aa0d-82e04266f57d",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    },
+    {
+      "id": "faa3cae8-2294-44ed-8913-c1713643a244",
+      "audioId": "4a10c0f7-bd1d-40de-a970-30be07b1244e",
+      "videoId": null,
+      "topicId": "515832db-0253-4061-966d-5918b994a4e8"
+    },
+    {
+      "id": "e3567b5f-8c04-4912-97a2-a46bd93f465f",
+      "audioId": "704c55ec-3456-47a5-86e2-66418ab16d8c",
+      "videoId": null,
+      "topicId": "88c83cdd-f50c-4bc7-ba96-2b90267b4067"
+    },
+    {
+      "id": "cf329148-7b3d-4647-88cc-aace0777653e",
+      "audioId": "cc7a59d3-74e4-4565-9937-16634966cd8e",
+      "videoId": null,
+      "topicId": "917e8439-d0ae-41e8-b10d-c02a81996d9d"
+    }
+  ],
+  "playlist": [],
+  "playlistItem": [],
+  "savedItem": [],
+  "playbackProgress": [],
+  "playbackRecord": [],
+  "download": [],
+  "userPreference": [],
+  "bibleNote": [],
+  "bibleHighlight": [],
+  "bibleBookmark": [],
+  "notification": []
+}
