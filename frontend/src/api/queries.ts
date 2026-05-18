@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useApiClient } from './apiClient';
+import { AudioMessage, VideoMessage, Series, Book, AppNotification } from '@/types';
 
 export function useHomeFeed() {
   const api = useApiClient();
@@ -232,6 +233,58 @@ export function useRemovePlaylistItem() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['me', 'playlists'] });
       queryClient.invalidateQueries({ queryKey: ['me', 'playlists', variables.playlistId] });
+    },
+  });
+}
+
+// ── Notifications ─────────────────────────────────────────────────────────────
+
+export function useNotifications() {
+  const api = useApiClient();
+  return useQuery({
+    queryKey: ['notifications'],
+    queryFn: async () => {
+      const { data } = await api.get<AppNotification[]>('/notifications');
+      return data;
+    },
+  });
+}
+
+export function useMarkNotificationRead() {
+  const api = useApiClient();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await api.patch(`/notifications/${id}/read`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    },
+  });
+}
+
+export function useMarkAllNotificationsRead() {
+  const api = useApiClient();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      await api.patch('/notifications/read-all');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    },
+  });
+}
+
+export function useDeleteNotification() {
+  const api = useApiClient();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await api.delete(`/notifications/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
     },
   });
 }

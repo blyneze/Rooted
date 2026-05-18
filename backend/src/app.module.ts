@@ -6,6 +6,7 @@ import { BibleModule } from './bible/bible.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ConfigModule } from '@nestjs/config';
     PrismaModule,
     ContentModule, 
     BibleModule, 
-    UserModule
+    UserModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],

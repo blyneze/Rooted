@@ -1,41 +1,37 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Root .gitignore for Rooted Project
 
-# dependencies
+# Dependency directories
 node_modules/
+frontend/node_modules/
+backend/node_modules/
 
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
+# Local env files
+.env
+frontend/.env
+backend/.env
+frontend/.env*.local
+backend/.env*.local
 
-# Native
-.kotlin/
-*.orig.*
+# Build outputs
+frontend/dist/
+backend/dist/
+frontend/.expo/
+frontend/web-build/
+backend/dist/
+
+# Logs and system files
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.DS_Store
+*.pem
+
+# Native build directories (if any generated)
+frontend/ios/
+frontend/android/
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
-*.pem
-
-# local env files
-.env*.local
-
-# typescript
-*.tsbuildinfo
-
-# generated native folders
-/ios
-/android

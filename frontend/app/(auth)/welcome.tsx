@@ -32,7 +32,11 @@ export default function WelcomeScreen() {
         style={StyleSheet.absoluteFillObject}
       />
 
-      <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]} pointerEvents="box-none">
+      <SafeAreaView
+        style={styles.safeArea}
+        edges={["top", "bottom"]}
+        pointerEvents="box-none"
+      >
         {/* Top section — brand */}
         <View style={styles.topSection}>
           <MotiView
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   wordmark: {
-    color: "#FFFFFF",
+    color: "#ffffff",
     fontSize: 36,
     fontWeight: "800",
     letterSpacing: -1.5,

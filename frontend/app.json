@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.rooted.app",
+      "bundleIdentifier": "com.blyneze.rooted",
       "infoPlist": {
         "UIBackgroundModes": [
           "audio",
@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#0A0A0A"
       },
-      "package": "com.rooted.app"
+      "package": "com.blyneze.rooted",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -44,6 +45,13 @@
     "scheme": "rooted",
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d24eaf87-7dda-4422-b89c-1570e937341d"
+      }
+    },
+    "owner": "blyneze"
   }
 }

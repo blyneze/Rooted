@@ -1,0 +1,29 @@
+# Render Blueprint for Rooted Backend and Database
+databases:
+  - name: rooted-db
+    plan: free
+
+services:
+  - type: web
+    name: rooted-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      # Auto-inject the connection string from the database resource defined above
+      - key: DATABASE_URL
+        fromDatabase:
+          name: rooted-db
+          property: connectionString
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: API_BIBLE_KEY
+        sync: false
+      - key: API_BIBLE_ID
+        value: de4e12af7f28f599-01

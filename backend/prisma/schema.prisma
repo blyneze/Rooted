@@ -24,6 +24,8 @@ model User {
   playlists       Playlist[]
   savedItems      SavedItem[]
   preferences     UserPreference?
+  pushToken      String?
+  notifications  Notification[]
 }
 
 model Series {
@@ -284,4 +286,17 @@ model BibleBookmark {
   user      User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
 
   @@unique([userId, book, chapter, verse])
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // 'welcome', 'series_alert', etc.
+  title       String
+  body        String
+  isRead      Boolean  @default(false)
+  actionRoute String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
 }

@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notificationService: NotificationService,
+  ) {}
 
   // Automatically ensure a user record exists in our DB when they make an authenticated request
   async ensureUserSync(clerkId: string, email?: string, firstName?: string, lastName?: string) {
@@ -15,9 +19,15 @@ export class UserService {
       user = await this.prisma.user.create({
         data: { clerkId, email, firstName, lastName },
       });
-      // create default preferences
       await this.prisma.userPreference.create({
         data: { userId: clerkId },
+      });
+
+      // Send Welcome Notification
+      await this.notificationService.notifyUser(clerkId, {
+        type: 'welcome',
+        title: 'Welcome to Rooted! 🌱',
+        body: 'We are so glad to have you here. Explore sermons, books, and the bible to grow your faith.',
       });
     } else if (email && user.email !== email) {
        // Optional: update user details if changed in Clerk

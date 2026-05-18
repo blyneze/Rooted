@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -16,6 +16,12 @@ import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { Inter_700Bold } from '@expo-google-fonts/inter/700Bold';
 import * as SplashScreen from 'expo-splash-screen';
 import { MediaOptionsModal } from '@/components/modals/MediaOptionsModal';
+import { LoadingSplash } from '@/components/ui/LoadingSplash';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';
+import axios from 'axios';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,7 +57,50 @@ const tokenCache = {
 
 const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_d2lubmluZy13aWxkY2F0LTgwLmNsZXJrLmFjY291bnRzLmRldiQ';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig?.extra?.eas?.projectId,
+    })).data;
+  }
+
+  return token;
+}
+
 function RootLayoutInner() {
+  const { getToken, userId } = useAuth();
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [splashVisible, setSplashVisible] = useState(true);
+
   const [fontsLoaded, fontError] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -61,16 +110,41 @@ function RootLayoutInner() {
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
+      setAppIsReady(true);
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
 
+  useEffect(() => {
+    if (userId) {
+      registerForPushNotificationsAsync().then(async (token) => {
+        if (token) {
+          try {
+            const authToken = await getToken();
+            const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://rooted-backend-8yvw.onrender.com';
+            await axios.post(`${API_URL}/notifications/token`, { token }, {
+              headers: { Authorization: `Bearer ${authToken}` }
+            });
+          } catch (e) {
+            console.error('[PushRegistration] Failed to save token:', e);
+          }
+        }
+      });
+    }
+  }, [userId]);
+
   if (!fontsLoaded && !fontError) {
-    return null;
+    return <LoadingSplash isLoading={true} onAnimationComplete={() => setSplashVisible(false)} />;
   }
 
   return (
     <View style={styles.root}>
+      {splashVisible && (
+        <LoadingSplash 
+          isLoading={!appIsReady} 
+          onAnimationComplete={() => setSplashVisible(false)} 
+        />
+      )}
       <StatusBar style="light" />
       <AudioController />
       <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>

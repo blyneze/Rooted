@@ -1,26 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { NOTIFICATIONS } from '@/constants/mockData';
 import theme from '@/theme';
 import type { AppNotification } from '@/types';
+import { 
+  useNotifications, 
+  useMarkNotificationRead, 
+  useMarkAllNotificationsRead, 
+  useDeleteNotification 
+} from '@/api/queries';
 
-function NotifRow({ item, onDelete }: { item: AppNotification; onDelete: () => void }) {
+function NotifRow({ 
+  item, 
+  onDelete, 
+  onRead 
+}: { 
+  item: AppNotification; 
+  onDelete: () => void; 
+  onRead: () => void;
+}) {
   const timeAgo = React.useMemo(() => {
     const diff = Date.now() - new Date(item.createdAt).getTime();
     const days = Math.floor(diff / 86400000);
     if (days > 0) return `${days}d ago`;
     const hrs = Math.floor(diff / 3600000);
     if (hrs > 0) return `${hrs}h ago`;
+    const mins = Math.floor(diff / 60000);
+    if (mins > 0) return `${mins}m ago`;
     return 'Just now';
   }, [item.createdAt]);
 
@@ -29,7 +45,11 @@ function NotifRow({ item, onDelete }: { item: AppNotification; onDelete: () => v
       style={[styles.notifRow, !item.isRead && styles.notifRowUnread]}
       activeOpacity={0.7}
       onPress={() => {
-        if (item.actionRoute) router.push(item.actionRoute as any);
+        onRead();
+        if (item.actionRoute) {
+          // @ts-ignore
+          router.push(item.actionRoute);
+        }
       }}
     >
       <View style={styles.notifContent}>
@@ -56,16 +76,24 @@ function NotifRow({ item, onDelete }: { item: AppNotification; onDelete: () => v
 }
 
 export default function NotificationsScreen() {
-  const [notifications, setNotifications] = useState<AppNotification[]>(NOTIFICATIONS);
+  const { data: notifications = [], isLoading, refetch } = useNotifications();
+  const markRead = useMarkNotificationRead();
+  const markAllRead = useMarkAllNotificationsRead();
+  const deleteNotif = useDeleteNotification();
+
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
-  const handleDelete = (id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  const handleMarkAllRead = () => {
+    markAllRead.mutate();
   };
 
-  const handleMarkAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-  };
+  if (isLoading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={theme.colors.accent} />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -83,9 +111,13 @@ export default function NotificationsScreen() {
           )}
         </View>
         
-        <TouchableOpacity hitSlop={12} onPress={handleMarkAllRead} disabled={unreadCount === 0}>
+        <TouchableOpacity 
+          hitSlop={12} 
+          onPress={handleMarkAllRead} 
+          disabled={unreadCount === 0 || markAllRead.isPending}
+        >
           <Typography variant="label" color={unreadCount > 0 ? "accent" : "tertiary"}>
-            Mark read
+            {markAllRead.isPending ? 'Working...' : 'Mark read'}
           </Typography>
         </TouchableOpacity>
       </View>
@@ -102,8 +134,18 @@ export default function NotificationsScreen() {
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContent}
+          onRefresh={refetch}
+          refreshing={isLoading}
           ItemSeparatorComponent={() => <View style={styles.divider} />}
-          renderItem={({ item }) => <NotifRow item={item} onDelete={() => handleDelete(item.id)} />}
+          renderItem={({ item }) => (
+            <NotifRow 
+              item={item} 
+              onDelete={() => deleteNotif.mutate(item.id)}
+              onRead={() => {
+                if (!item.isRead) markRead.mutate(item.id);
+              }}
+            />
+          )}
         />
       )}
     </SafeAreaView>
@@ -113,6 +155,12 @@ export default function NotificationsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.colors.background,
   },
   header: {
@@ -141,7 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   notifRowUnread: {
-    backgroundColor: 'rgba(0,0,0,0.01)', // Extremely subtle shift just to note state
+    backgroundColor: 'rgba(255, 255, 255, 0.03)', 
   },
   notifContent: {
     flex: 1,
