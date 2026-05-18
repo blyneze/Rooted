@@ -6,11 +6,16 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   constructor() {
     let url = process.env.DATABASE_URL || '';
     
-    // Auto-append sslmode=disable for safe internal network connections (Render production)
-    // if not already specified in the connection string.
+    // Auto-handle sslmode based on internal vs external connection types
     if (url && !url.includes('sslmode=')) {
       const separator = url.includes('?') ? '&' : '?';
-      url = `${url}${separator}sslmode=disable`;
+      if (url.includes('.render.com')) {
+        // External URL: Enforce SSL (required by Render's public gateway)
+        url = `${url}${separator}sslmode=require`;
+      } else {
+        // Internal URL: Disable SSL (required by Render's private virtual network)
+        url = `${url}${separator}sslmode=disable`;
+      }
     }
 
     super({
