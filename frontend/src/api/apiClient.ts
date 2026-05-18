@@ -3,7 +3,8 @@ import { useAuth } from '@clerk/expo';
 import { useMemo } from 'react';
 
 // Use local machine IP for android emulator, e.g. 10.0.2.2 or real IP
-export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+const rawUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+export const API_BASE_URL = rawUrl.endsWith('/api/v1') ? rawUrl : `${rawUrl.replace(/\/$/, '')}/api/v1`;
 
 export const useApiClient = () => {
   const { getToken } = useAuth();

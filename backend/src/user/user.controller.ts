@@ -1,7 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ClerkAuthGuard } from '../auth/clerk-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
+import { SyncUserDto } from './dto/sync-user.dto';
+import { SaveItemDto } from './dto/save-item.dto';
+import { CreatePlaylistDto } from './dto/create-playlist.dto';
+import { AddPlaylistItemDto } from './dto/add-playlist-item.dto';
+import { UpdatePlaybackProgressDto } from './dto/update-playback-progress.dto';
 
 @Controller('me')
 @UseGuards(ClerkAuthGuard)
@@ -9,7 +14,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('sync')
-  async syncUser(@CurrentUser() userId: string, @Body() body: any) {
+  async syncUser(@CurrentUser() userId: string, @Body() body: SyncUserDto) {
      return this.userService.ensureUserSync(userId, body.email, body.firstName, body.lastName);
   }
 
@@ -19,7 +24,7 @@ export class UserController {
   }
 
   @Post('saved')
-  async saveItem(@CurrentUser() userId: string, @Body() body: { messageId?: string; bookId?: string }) {
+  async saveItem(@CurrentUser() userId: string, @Body() body: SaveItemDto) {
     return this.userService.saveItem(userId, body);
   }
 
@@ -34,12 +39,16 @@ export class UserController {
   }
 
   @Post('playlists')
-  async createPlaylist(@CurrentUser() userId: string, @Body() body: { name: string; description?: string }) {
+  async createPlaylist(@CurrentUser() userId: string, @Body() body: CreatePlaylistDto) {
     return this.userService.createPlaylist(userId, body.name, body.description);
   }
 
   @Post('playlists/:id/items')
-  async addPlaylistItem(@CurrentUser() userId: string, @Param('id') playlistId: string, @Body() body: { messageId?: string; videoId?: string }) {
+  async addPlaylistItem(
+    @CurrentUser() userId: string, 
+    @Param('id') playlistId: string, 
+    @Body() body: AddPlaylistItemDto
+  ) {
     return this.userService.addPlaylistItem(userId, playlistId, { messageId: body.messageId, videoId: body.videoId });
   }
 
@@ -49,7 +58,11 @@ export class UserController {
   }
 
   @Delete('playlists/:id/items/:messageId')
-  async removePlaylistItem(@CurrentUser() userId: string, @Param('id') playlistId: string, @Param('messageId') messageId: string) {
+  async removePlaylistItem(
+    @CurrentUser() userId: string, 
+    @Param('id') playlistId: string, 
+    @Param('messageId') messageId: string
+  ) {
     return this.userService.removePlaylistItem(userId, playlistId, { messageId });
   }
 
@@ -61,8 +74,14 @@ export class UserController {
   @Post('progress')
   async updatePlaybackProgress(
     @CurrentUser() userId: string, 
-    @Body() body: { messageId: string; position: number; progress: number; isCompleted: boolean }
+    @Body() body: UpdatePlaybackProgressDto
   ) {
-    return this.userService.updatePlaybackProgress(userId, { messageId: body.messageId }, body.position, body.progress, body.isCompleted);
+    return this.userService.updatePlaybackProgress(
+      userId, 
+      { messageId: body.messageId }, 
+      body.position, 
+      body.progress, 
+      body.isCompleted
+    );
   }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Image } from 'react-native';
-import { MotiView, MotiImage } from 'moti';
+import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
+import { MotiView } from 'moti';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '@/theme';
 
@@ -16,15 +16,26 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
   isLoading 
 }) => {
   const [isExiting, setIsExiting] = useState(false);
+  const [progressWidth, setProgressWidth] = useState(0);
 
   useEffect(() => {
-    if (!isLoading && !isExiting) {
-      // Delay exit slightly to let entrance finish if app loads too fast
+    // Smoothly animate progress bar locally to give high-fidelity responsive feel
+    let interval: NodeJS.Timeout;
+    if (isLoading) {
+      interval = setInterval(() => {
+        setProgressWidth(prev => {
+          if (prev >= 0.85) return prev + 0.005; // slow down near the end
+          return prev + 0.05;
+        });
+      }, 80);
+    } else {
+      setProgressWidth(1);
       const timer = setTimeout(() => {
         setIsExiting(true);
-      }, 1000);
+      }, 400);
       return () => clearTimeout(timer);
     }
+    return () => clearInterval(interval);
   }, [isLoading]);
 
   return (
@@ -34,7 +45,7 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
       }}
       transition={{
         type: 'timing',
-        duration: 500,
+        duration: 400,
       }}
       onDidAnimate={(prop, value) => {
         if (isExiting && prop === 'opacity' && (value as any) === 0) {
@@ -43,36 +54,32 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
       }}
       style={styles.container}
     >
+      {/* Soft, premium off-white radial-like gradient */}
       <LinearGradient
-        colors={[theme.colors.background, '#1A1A1A', theme.colors.background]}
+        colors={['#FFFFFF', '#F5F5F9']}
         style={StyleSheet.absoluteFill}
       />
       
-      {/* Background Glow Effect */}
+      {/* Soft Breathing Ambient Red Aura behind the logo */}
       <MotiView
-        from={{ scale: 0.6, opacity: 0.2 }}
-        animate={{ scale: 1.2, opacity: 0.4 }}
+        from={{ scale: 0.8, opacity: 0.3 }}
+        animate={{ scale: 1.25, opacity: 0.6 }}
         transition={{
           type: 'timing',
-          duration: 2000,
+          duration: 3000,
           loop: true,
           repeatReverse: true,
         }}
-        style={styles.glow}
-      >
-        <LinearGradient
-          colors={[theme.colors.accent + '40', 'transparent']}
-          style={styles.glowGradient}
-        />
-      </MotiView>
+        style={styles.ambientAura}
+      />
 
       <View style={styles.content}>
-        <MotiImage
-          source={require('../../../assets/whitebglogo.png')}
+        {/* Floating Brand Badge */}
+        <MotiView
           from={{ 
-            scale: 0.4, 
+            scale: 0.7, 
             opacity: 0,
-            translateY: 20 
+            translateY: 30 
           }}
           animate={{ 
             scale: 1, 
@@ -81,21 +88,26 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
           }}
           transition={{
             type: 'spring',
-            damping: 12,
-            stiffness: 100,
-            delay: 100,
+            damping: 15,
+            stiffness: 110,
           }}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+          style={styles.logoCard}
+        >
+          <Image
+            source={require('../../../assets/whitebglogo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </MotiView>
         
+        {/* Brand Text & Tagline Container */}
         <MotiView
-          from={{ opacity: 0, translateY: 10 }}
+          from={{ opacity: 0, translateY: 15 }}
           animate={{ opacity: 1, translateY: 0 }}
           transition={{
             type: 'timing',
             duration: 600,
-            delay: 400,
+            delay: 350,
           }}
           style={styles.textContainer}
         >
@@ -104,20 +116,28 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
             style={styles.logoText}
             resizeMode="contain"
           />
+          
+          <Text style={styles.tagline}>
+            ROOTED IN FAITH  ·  GROWING IN GRACE
+          </Text>
         </MotiView>
       </View>
 
-      {/* Subtle indicator */}
-      <MotiView
-        from={{ width: 0 }}
-        animate={{ width: width * 0.4 }}
-        transition={{
-          type: 'timing',
-          duration: 1500,
-          loop: true,
-        }}
-        style={styles.progressBar}
-      />
+      {/* Premium Minimalist Progress Loader */}
+      <View style={styles.loaderContainer}>
+        <View style={styles.progressTrack}>
+          <MotiView
+            animate={{
+              width: width * 0.45 * progressWidth,
+            }}
+            transition={{
+              type: 'timing',
+              duration: 250,
+            }}
+            style={styles.progressBar}
+          />
+        </View>
+      </View>
     </MotiView>
   );
 };
@@ -129,42 +149,73 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 9999,
   },
-  glow: {
+  ambientAura: {
     position: 'absolute',
-    width: width * 0.8,
-    height: width * 0.8,
-    borderRadius: (width * 0.8) / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  glowGradient: {
-    width: '100%',
-    height: '100%',
-    borderRadius: (width * 0.8) / 2,
+    width: width * 0.7,
+    height: width * 0.7,
+    borderRadius: (width * 0.7) / 2,
+    backgroundColor: 'rgba(255, 59, 48, 0.05)', // Extremely soft red brand bloom
+    filter: 'blur(30px)', // Beautiful soft blur
   },
   content: {
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  logoCard: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 28,
+    // Premium multi-layered shadow for 3D elevation
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 6,
+    borderWidth: 1,
+    borderColor: '#F2F2F7',
   },
   logo: {
-    width: width * 0.2,
-    height: width * 0.2,
-    marginBottom: 24,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   textContainer: {
-    height: 40,
-    width: width * 0.4,
+    alignItems: 'center',
+    marginTop: 8,
   },
   logoText: {
-    width: '100%',
-    height: '100%',
-    tintColor: theme.colors.textPrimary,
+    width: width * 0.42,
+    height: 38,
+    tintColor: '#000000', // Crisp branding contrast
+  },
+  tagline: {
+    fontFamily: theme.fonts.medium,
+    fontSize: 9,
+    letterSpacing: 2,
+    color: '#8E8E93', // Muted gray subheading
+    marginTop: 14,
+    fontWeight: '500',
+  },
+  loaderContainer: {
+    position: 'absolute',
+    bottom: height * 0.12,
+    alignItems: 'center',
+  },
+  progressTrack: {
+    width: width * 0.45,
+    height: 2.5,
+    backgroundColor: '#E5E5EA', // Thin light grey track
+    borderRadius: 99,
+    overflow: 'hidden',
   },
   progressBar: {
-    position: 'absolute',
-    bottom: height * 0.15,
-    height: 2,
-    backgroundColor: theme.colors.accent,
-    borderRadius: 1,
-    opacity: 0.5,
+    height: '100%',
+    backgroundColor: '#FF3B30', // Vibrant brand accent fill
+    borderRadius: 99,
   },
 });

@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/c
 import { BibleService } from './bible.service';
 import { ClerkAuthGuard } from '../auth/clerk-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
+import { CreateNoteDto } from './dto/create-note.dto';
+import { CreateHighlightDto } from './dto/create-highlight.dto';
 
 @Controller('bible')
 export class BibleController {
@@ -28,7 +30,7 @@ export class BibleController {
   @UseGuards(ClerkAuthGuard)
   async createNote(
     @CurrentUser() userId: string,
-    @Body() body: { book: string; chapter: number; verse: number | null; content: string }
+    @Body() body: CreateNoteDto
   ) {
     return this.bibleService.createNote(userId, body.book, body.chapter, body.verse, body.content);
   }
@@ -49,7 +51,7 @@ export class BibleController {
   @UseGuards(ClerkAuthGuard)
   async createHighlight(
     @CurrentUser() userId: string,
-    @Body() body: { book: string; chapter: number; verse: number; colorHex: string }
+    @Body() body: CreateHighlightDto
   ) {
     return this.bibleService.createHighlight(userId, body.book, body.chapter, body.verse, body.colorHex);
   }
