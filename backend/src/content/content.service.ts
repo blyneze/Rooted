@@ -7,42 +7,46 @@ export class ContentService {
 
   async getHomeFeed() {
     try {
-      const featured = await this.prisma.featuredSection.findMany({
-        orderBy: { orderIndex: 'asc' },
-        include: {
-          items: {
-            include: {
-              audio: { include: { topics: { include: { topic: true } } } },
-              video: { include: { topics: { include: { topic: true } } } },
-              book: true,
+      const [
+        featured,
+        seriesList,
+        trendingMessages,
+        recentMessages,
+        books,
+        videos,
+      ] = await Promise.all([
+        this.prisma.featuredSection.findMany({
+          orderBy: { orderIndex: 'asc' },
+          include: {
+            items: {
+              include: {
+                audio: { include: { topics: { include: { topic: true } } } },
+                video: { include: { topics: { include: { topic: true } } } },
+                book: true,
+              },
+              orderBy: { orderIndex: 'asc' },
             },
-            orderBy: { orderIndex: 'asc' },
           },
-        },
-      });
-
-      const seriesList = await this.prisma.series.findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 5,
-      });
-
-      const trendingMessages = await this.prisma.audioMessage.findMany({
-        take: 6,
-      });
-
-      const recentMessages = await this.prisma.audioMessage.findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 6,
-      });
-
-      const books = await this.prisma.book.findMany({
-        take: 5,
-      });
-
-      const videos = await this.prisma.videoMessage.findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 6,
-      });
+        }),
+        this.prisma.series.findMany({
+          orderBy: { createdAt: 'desc' },
+          take: 5,
+        }),
+        this.prisma.audioMessage.findMany({
+          take: 6,
+        }),
+        this.prisma.audioMessage.findMany({
+          orderBy: { createdAt: 'desc' },
+          take: 6,
+        }),
+        this.prisma.book.findMany({
+          take: 5,
+        }),
+        this.prisma.videoMessage.findMany({
+          orderBy: { createdAt: 'desc' },
+          take: 6,
+        }),
+      ]);
 
       return {
         featured: (featured || []).map(section => ({
@@ -70,35 +74,36 @@ export class ContentService {
   }
 
   async getMessages(query?: string) {
-    const audio = await this.prisma.audioMessage.findMany({
-      where: query
-        ? {
-            OR: [
-              { title: { contains: query, mode: 'insensitive' } },
-              { speakerName: { contains: query, mode: 'insensitive' } },
-            ],
-          }
-        : undefined,
-      include: {
-        topics: { include: { topic: true } },
-      },
-      orderBy: { releaseDate: 'desc' },
-    });
-
-    const video = await this.prisma.videoMessage.findMany({
-      where: query
-        ? {
-            OR: [
-              { title: { contains: query, mode: 'insensitive' } },
-              { speakerName: { contains: query, mode: 'insensitive' } },
-            ],
-          }
-        : undefined,
-      include: {
-        topics: { include: { topic: true } },
-      },
-      orderBy: { releaseDate: 'desc' },
-    });
+    const [audio, video] = await Promise.all([
+      this.prisma.audioMessage.findMany({
+        where: query
+          ? {
+              OR: [
+                { title: { contains: query, mode: 'insensitive' } },
+                { speakerName: { contains: query, mode: 'insensitive' } },
+              ],
+            }
+          : undefined,
+        include: {
+          topics: { include: { topic: true } },
+        },
+        orderBy: { releaseDate: 'desc' },
+      }),
+      this.prisma.videoMessage.findMany({
+        where: query
+          ? {
+              OR: [
+                { title: { contains: query, mode: 'insensitive' } },
+                { speakerName: { contains: query, mode: 'insensitive' } },
+              ],
+            }
+          : undefined,
+        include: {
+          topics: { include: { topic: true } },
+        },
+        orderBy: { releaseDate: 'desc' },
+      }),
+    ]);
 
     return {
       audio,

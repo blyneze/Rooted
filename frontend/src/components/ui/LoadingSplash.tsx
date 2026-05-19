@@ -40,6 +40,7 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
 
   return (
     <MotiView
+      pointerEvents={isExiting ? 'none' : 'auto'}
       animate={{
         opacity: isExiting ? 0 : 1,
       }}
@@ -54,9 +55,9 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
       }}
       style={styles.container}
     >
-      {/* Soft, premium off-white radial-like gradient */}
+      {/* Soft, premium dark gradient */}
       <LinearGradient
-        colors={['#FFFFFF', '#F5F5F9']}
+        colors={['#1A1A1A', '#000000']}
         style={StyleSheet.absoluteFill}
       />
       
@@ -94,7 +95,7 @@ export const LoadingSplash: React.FC<LoadingSplashProps> = ({
           style={styles.logoCard}
         >
           <Image
-            source={require('../../../assets/whitebglogo.png')}
+            source={require('../../../assets/logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     width: width * 0.7,
     height: width * 0.7,
     borderRadius: (width * 0.7) / 2,
-    backgroundColor: 'rgba(255, 59, 48, 0.05)', // Extremely soft red brand bloom
+    backgroundColor: 'rgba(255, 59, 48, 0.15)', // Enhanced red brand bloom for dark bg
     filter: 'blur(30px)', // Beautiful soft blur
   },
   content: {
@@ -166,18 +167,18 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 28,
     // Premium multi-layered shadow for 3D elevation
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.2,
     shadowRadius: 12,
     elevation: 6,
     borderWidth: 1,
-    borderColor: '#F2F2F7',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
   logo: {
     width: 60,
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
   logoText: {
     width: width * 0.42,
     height: 38,
-    tintColor: '#000000', // Crisp branding contrast
+    tintColor: '#FFFFFF', // Crisp branding contrast for dark bg
   },
   tagline: {
     fontFamily: theme.fonts.medium,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
   progressTrack: {
     width: width * 0.45,
     height: 2.5,
-    backgroundColor: '#E5E5EA', // Thin light grey track
+    backgroundColor: 'rgba(255, 255, 255, 0.15)', // Thin track for dark mode
     borderRadius: 99,
     overflow: 'hidden',
   },

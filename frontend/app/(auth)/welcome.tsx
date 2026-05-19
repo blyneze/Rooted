@@ -45,7 +45,7 @@ export default function WelcomeScreen() {
             transition={{ type: "timing", duration: 1000, delay: 200 }}
           >
             <Image
-              source={require("../../assets/whitebglogo.png")}
+              source={require("../../assets/logo.png")}
               style={styles.logo}
               contentFit="contain"
             />
