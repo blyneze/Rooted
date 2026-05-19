@@ -49,20 +49,28 @@ class MediaDownloadService {
 
     try {
       const dir = await this.ensureDir();
-      const extension = nextItem.remoteUrl.split('.').pop() || 'mp3';
+      const extension = nextItem.remoteUrl.split('.').pop()?.split('?')[0] || 'mp3';
       const filename = `${nextItem.messageId}.${extension}`;
       const localUri = `${dir}${filename}`;
+
+      // Immediately mark as downloading so the UI updates right away
+      setStatus(nextItem.messageId, 'downloading');
 
       const downloadResumable = FileSystem.createDownloadResumable(
         nextItem.remoteUrl,
         localUri,
         {},
         (progress) => {
-          const p = Math.round(
-            (progress.totalBytesWritten / progress.totalBytesExpectedToWrite) * 100
-          );
-          // Only update on meaningful changes to avoid excessive re-renders
-          if (p % 5 === 0 || p === 100) {
+          // Guard against NaN when server hasn't sent Content-Length yet
+          const { totalBytesWritten, totalBytesExpectedToWrite } = progress;
+          if (!totalBytesExpectedToWrite || totalBytesExpectedToWrite <= 0) {
+            // Show indeterminate progress: just pulse at 1% so UI shows activity
+            updateProgress(nextItem.messageId, 1);
+            return;
+          }
+          const p = Math.round((totalBytesWritten / totalBytesExpectedToWrite) * 100);
+          // Update on every 2% increment or at 100 to keep UI responsive
+          if (p % 2 === 0 || p === 100) {
             updateProgress(nextItem.messageId, p);
           }
         }

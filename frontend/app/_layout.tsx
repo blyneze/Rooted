@@ -122,13 +122,16 @@ function RootLayoutInner() {
           try {
             const authToken = await getToken();
             const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://rooted-backend-8yvw.onrender.com';
-            await axios.post(`${API_URL}/notifications/token`, { token }, {
+            const API_BASE_URL = API_URL.endsWith('/api/v1') ? API_URL : `${API_URL.replace(/\/$/, '')}/api/v1`;
+            await axios.post(`${API_BASE_URL}/notifications/token`, { token }, {
               headers: { Authorization: `Bearer ${authToken}` }
             });
-          } catch (e) {
-            console.error('[PushRegistration] Failed to save token:', e);
+          } catch {
+            // Push token registration is best-effort — silently ignore failures
           }
         }
+      }).catch(() => {
+        // Silently ignore push notification permission/registration errors
       });
     }
   }, [userId]);

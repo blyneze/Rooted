@@ -1,144 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import { MotiView } from 'moti';
-import { LinearGradient } from 'expo-linear-gradient';
 import theme from '@/theme';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 interface LoadingSplashProps {
   onAnimationComplete?: () => void;
   isLoading: boolean;
 }
 
-export const LoadingSplash: React.FC<LoadingSplashProps> = ({ 
+export const LoadingSplash: React.FC<LoadingSplashProps> = ({
   onAnimationComplete,
-  isLoading 
+  isLoading,
 }) => {
-  const [isExiting, setIsExiting] = useState(false);
-  const [progressWidth, setProgressWidth] = useState(0);
+  const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter');
 
   useEffect(() => {
-    // Smoothly animate progress bar locally to give high-fidelity responsive feel
-    let interval: NodeJS.Timeout;
-    if (isLoading) {
-      interval = setInterval(() => {
-        setProgressWidth(prev => {
-          if (prev >= 0.85) return prev + 0.005; // slow down near the end
-          return prev + 0.05;
-        });
-      }, 80);
-    } else {
-      setProgressWidth(1);
-      const timer = setTimeout(() => {
-        setIsExiting(true);
-      }, 400);
+    if (!isLoading && phase !== 'exit') {
+      // Data is ready — brief hold then exit
+      const timer = setTimeout(() => setPhase('exit'), 300);
       return () => clearTimeout(timer);
     }
-    return () => clearInterval(interval);
   }, [isLoading]);
+
+  useEffect(() => {
+    // After the logo animates in, move to "hold"
+    const timer = setTimeout(() => {
+      if (phase === 'enter') setPhase('hold');
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <MotiView
-      pointerEvents={isExiting ? 'none' : 'auto'}
+      pointerEvents={phase === 'exit' ? 'none' : 'auto'}
       animate={{
-        opacity: isExiting ? 0 : 1,
+        opacity: phase === 'exit' ? 0 : 1,
       }}
       transition={{
         type: 'timing',
-        duration: 400,
+        duration: 350,
       }}
-      onDidAnimate={(prop, value) => {
-        if (isExiting && prop === 'opacity' && (value as any) === 0) {
+      onDidAnimate={(prop, finished) => {
+        if (phase === 'exit' && prop === 'opacity') {
           onAnimationComplete?.();
         }
       }}
       style={styles.container}
     >
-      {/* Soft, premium dark gradient */}
-      <LinearGradient
-        colors={['#1A1A1A', '#000000']}
-        style={StyleSheet.absoluteFill}
-      />
-      
-      {/* Soft Breathing Ambient Red Aura behind the logo */}
+      {/* Logo — scales and fades in */}
       <MotiView
-        from={{ scale: 0.8, opacity: 0.3 }}
-        animate={{ scale: 1.25, opacity: 0.6 }}
+        from={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
         transition={{
           type: 'timing',
-          duration: 3000,
-          loop: true,
-          repeatReverse: true,
+          duration: 600,
         }}
-        style={styles.ambientAura}
-      />
-
-      <View style={styles.content}>
-        {/* Floating Brand Badge */}
-        <MotiView
-          from={{ 
-            scale: 0.7, 
-            opacity: 0,
-            translateY: 30 
-          }}
-          animate={{ 
-            scale: 1, 
-            opacity: 1,
-            translateY: 0 
-          }}
-          transition={{
-            type: 'spring',
-            damping: 15,
-            stiffness: 110,
-          }}
-          style={styles.logoCard}
-        >
-          <Image
-            source={require('../../../assets/logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-        </MotiView>
-        
-        {/* Brand Text & Tagline Container */}
-        <MotiView
-          from={{ opacity: 0, translateY: 15 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{
-            type: 'timing',
-            duration: 600,
-            delay: 350,
-          }}
-          style={styles.textContainer}
-        >
-          <Image 
-            source={require('../../../assets/logotext.png')}
-            style={styles.logoText}
-            resizeMode="contain"
-          />
-          
-          <Text style={styles.tagline}>
-            ROOTED IN FAITH  ·  GROWING IN GRACE
-          </Text>
-        </MotiView>
-      </View>
-
-      {/* Premium Minimalist Progress Loader */}
-      <View style={styles.loaderContainer}>
-        <View style={styles.progressTrack}>
-          <MotiView
-            animate={{
-              width: width * 0.45 * progressWidth,
-            }}
-            transition={{
-              type: 'timing',
-              duration: 250,
-            }}
-            style={styles.progressBar}
-          />
-        </View>
-      </View>
+        style={styles.logoWrapper}
+      >
+        <Image
+          source={require('../../../assets/logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </MotiView>
     </MotiView>
   );
 };
@@ -148,75 +74,15 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0A0A0A',
     zIndex: 9999,
   },
-  ambientAura: {
-    position: 'absolute',
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: 'rgba(255, 59, 48, 0.15)', // Enhanced red brand bloom for dark bg
-    filter: 'blur(30px)', // Beautiful soft blur
-  },
-  content: {
+  logoWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 40,
-  },
-  logoCard: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 28,
-    // Premium multi-layered shadow for 3D elevation
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-    elevation: 6,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
   logo: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-  },
-  textContainer: {
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  logoText: {
-    width: width * 0.42,
-    height: 38,
-    tintColor: '#FFFFFF', // Crisp branding contrast for dark bg
-  },
-  tagline: {
-    fontFamily: theme.fonts.medium,
-    fontSize: 9,
-    letterSpacing: 2,
-    color: '#8E8E93', // Muted gray subheading
-    marginTop: 14,
-    fontWeight: '500',
-  },
-  loaderContainer: {
-    position: 'absolute',
-    bottom: height * 0.12,
-    alignItems: 'center',
-  },
-  progressTrack: {
-    width: width * 0.45,
-    height: 2.5,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)', // Thin track for dark mode
-    borderRadius: 99,
-    overflow: 'hidden',
-  },
-  progressBar: {
-    height: '100%',
-    backgroundColor: '#FF3B30', // Vibrant brand accent fill
-    borderRadius: 99,
+    width: width * 0.3,
+    height: width * 0.3,
   },
 });

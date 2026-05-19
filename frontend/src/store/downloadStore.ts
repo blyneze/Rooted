@@ -38,7 +38,7 @@ export const useDownloadStore = create<DownloadStore>()(
           ),
         })),
 
-      setStatus: (messageId, status, localUri) =>
+      setStatus: (messageId, status, localUri, sizeBytes) =>
         set((state) => ({
           downloads: state.downloads.map((d) =>
             d.messageId === messageId
