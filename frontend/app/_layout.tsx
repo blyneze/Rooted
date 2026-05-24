@@ -29,7 +29,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 2,
+      retry: 3,
+      retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 15000), // 1s, 2s, 4s… max 15s
     },
   },
 });
@@ -55,7 +56,12 @@ const tokenCache = {
   },
 };
 
-const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_d2lubmluZy13aWxkY2F0LTgwLmNsZXJrLmFjY291bnRzLmRldiQ';
+const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+if (!CLERK_KEY) {
+  throw new Error(
+    'Missing EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY. Add it to eas.json env and your .env file.',
+  );
+}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -121,7 +127,7 @@ function RootLayoutInner() {
         if (token) {
           try {
             const authToken = await getToken();
-            const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://rooted-backend-8yvw.onrender.com';
+            const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
             const API_BASE_URL = API_URL.endsWith('/api/v1') ? API_URL : `${API_URL.replace(/\/$/, '')}/api/v1`;
             await axios.post(`${API_BASE_URL}/notifications/token`, { token }, {
               headers: { Authorization: `Bearer ${authToken}` }

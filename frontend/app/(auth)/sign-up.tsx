@@ -8,21 +8,26 @@ import {
   Platform,
   ScrollView,
   Alert,
+  ActivityIndicator,
+  Image,
 } from 'react-native';
 import { router } from 'expo-router';
-import { useSignUp, useClerk, useAuth } from '@clerk/expo';
+import { useSignUp, useOAuth } from '@clerk/expo';
+import * as WebBrowser from 'expo-web-browser';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { Button } from '@/components/ui/Button';
 import theme from '@/theme';
 
+// Required for OAuth redirect to complete on Android
+WebBrowser.maybeCompleteAuthSession();
+
 type Step = 'details' | 'verify';
 
 export default function SignUpScreen() {
-  const { client, setActive } = useClerk();
-  const { isLoaded } = useAuth();
-  const signUp = client.signUp;
+  const { signUp, setActive, isLoaded } = useSignUp();
+  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' });
 
   const [step, setStep] = useState<Step>('details');
   const [firstName, setFirstName] = useState('');
@@ -31,21 +36,22 @@ export default function SignUpScreen() {
   const [code, setCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSignUp = async () => {
-    if (!isLoaded) {
-      Alert.alert("Error", "Clerk is not fully loaded yet. Please wait a moment.");
+    if (!isLoaded || !signUp) {
+      Alert.alert('Error', 'Auth is not ready yet. Please wait a moment.');
       return;
     }
     if (!firstName || !email || !password) {
-      Alert.alert("Missing Fields", "Please fill out all fields.");
+      Alert.alert('Missing Fields', 'Please fill out all fields.');
       return;
     }
 
     setIsLoading(true);
     setError('');
-    
+
     try {
       await signUp.create({
         firstName,
@@ -56,32 +62,54 @@ export default function SignUpScreen() {
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setStep('verify');
     } catch (err: any) {
-      console.error("[SignUp Error]", JSON.stringify(err, null, 2));
-      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Could not create account. Please try again.';
+      console.error('[SignUp Error]', JSON.stringify(err, null, 2));
+      const message =
+        err?.errors?.[0]?.message ?? err?.message ?? 'Could not create account. Please try again.';
       setError(message);
-      Alert.alert("Sign Up Failed", message);
+      Alert.alert('Sign Up Failed', message);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleVerify = async () => {
-    if (!isLoaded) return;
+    if (!isLoaded || !signUp) return;
     setIsLoading(true);
     setError('');
-    
+
     try {
       const result = await signUp.attemptEmailAddressVerification({ code });
-      
+
       if (result.status === 'complete') {
         await setActive({ session: result.createdSessionId });
         router.replace('/(tabs)');
       }
     } catch (err: any) {
-      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Invalid verification code.';
+      const message =
+        err?.errors?.[0]?.message ?? err?.message ?? 'Invalid verification code.';
       setError(message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setIsGoogleLoading(true);
+    setError('');
+    try {
+      const { createdSessionId, setActive: setActiveSession } = await startOAuthFlow();
+      if (createdSessionId && setActiveSession) {
+        await setActiveSession({ session: createdSessionId });
+        router.replace('/(tabs)');
+      }
+    } catch (err: any) {
+      console.error('[Google SignUp Error]', JSON.stringify(err, null, 2));
+      const message =
+        err?.errors?.[0]?.message ?? err?.message ?? 'Google sign up failed. Please try again.';
+      setError(message);
+      Alert.alert('Google Sign Up Failed', message);
+    } finally {
+      setIsGoogleLoading(false);
     }
   };
 
@@ -112,6 +140,37 @@ export default function SignUpScreen() {
                 <Typography variant="body" color="secondary" style={{ marginTop: 8 }}>
                   Begin your journey. Rooted in the Word.
                 </Typography>
+              </View>
+
+              {/* Google Sign Up */}
+              <TouchableOpacity
+                style={styles.googleBtn}
+                onPress={handleGoogleSignUp}
+                disabled={isGoogleLoading}
+                activeOpacity={0.75}
+              >
+                {isGoogleLoading ? (
+                  <ActivityIndicator size="small" color={theme.colors.textPrimary} />
+                ) : (
+                  <>
+                    <Image
+                      source={{ uri: 'https://www.google.com/favicon.ico' }}
+                      style={styles.googleIcon}
+                    />
+                    <Typography variant="label" style={styles.googleBtnText}>
+                      Continue with Google
+                    </Typography>
+                  </>
+                )}
+              </TouchableOpacity>
+
+              {/* Divider */}
+              <View style={styles.divider}>
+                <View style={styles.dividerLine} />
+                <Typography variant="caption" color="tertiary" style={styles.dividerText}>
+                  or sign up with email
+                </Typography>
+                <View style={styles.dividerLine} />
               </View>
 
               <View style={styles.form}>
@@ -279,6 +338,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.spacing.xl,
+  },
+  googleBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
+    borderWidth: 1,
+    borderColor: theme.colors.surfaceBorder,
+    paddingVertical: 14,
+    paddingHorizontal: theme.spacing.base,
+    marginBottom: theme.spacing.xl,
+  },
+  googleIcon: {
+    width: 20,
+    height: 20,
+    borderRadius: 2,
+  },
+  googleBtnText: {
+    color: theme.colors.textPrimary,
+    fontSize: theme.fontSize.base,
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xl,
+    gap: theme.spacing.sm,
+  },
+  dividerLine: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: theme.colors.surfaceBorder,
+  },
+  dividerText: {
+    paddingHorizontal: 4,
   },
   form: {
     gap: theme.spacing.base,

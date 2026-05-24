@@ -9,39 +9,44 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  Image,
 } from 'react-native';
 import { router } from 'expo-router';
-import { useSignIn, useClerk, useAuth } from '@clerk/expo';
+import { useSignIn, useOAuth } from '@clerk/expo';
+import * as WebBrowser from 'expo-web-browser';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from '@/components/ui/Typography';
 import { Button } from '@/components/ui/Button';
 import theme from '@/theme';
 
+// Required for OAuth redirect to complete on Android
+WebBrowser.maybeCompleteAuthSession();
+
 export default function SignInScreen() {
-  const { client, setActive } = useClerk();
-  const { isLoaded } = useAuth();
-  const signIn = client.signIn;
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' });
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSignIn = async () => {
-    if (!isLoaded) {
-      Alert.alert("Error", "Clerk is not fully loaded yet. Please wait a moment.");
+    if (!isLoaded || !signIn) {
+      Alert.alert('Error', 'Auth is not ready yet. Please wait a moment.');
       return;
     }
     if (!email || !password) {
-      Alert.alert("Missing Fields", "Please enter both email and password.");
+      Alert.alert('Missing Fields', 'Please enter both email and password.');
       return;
     }
-    
+
     setIsLoading(true);
     setError('');
-    
+
     try {
       const result = await signIn.create({ identifier: email, password });
       if (result.status === 'complete') {
@@ -49,12 +54,33 @@ export default function SignInScreen() {
         router.replace('/(tabs)');
       }
     } catch (err: any) {
-      console.error("[SignIn Error]", JSON.stringify(err, null, 2));
-      const message = err?.errors?.[0]?.message ?? err?.message ?? 'Sign in failed. Please try again.';
+      console.error('[SignIn Error]', JSON.stringify(err, null, 2));
+      const message =
+        err?.errors?.[0]?.message ?? err?.message ?? 'Sign in failed. Please try again.';
       setError(message);
-      Alert.alert("Sign In Failed", message);
+      Alert.alert('Sign In Failed', message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsGoogleLoading(true);
+    setError('');
+    try {
+      const { createdSessionId, setActive: setActiveSession } = await startOAuthFlow();
+      if (createdSessionId && setActiveSession) {
+        await setActiveSession({ session: createdSessionId });
+        router.replace('/(tabs)');
+      }
+    } catch (err: any) {
+      console.error('[Google SignIn Error]', JSON.stringify(err, null, 2));
+      const message =
+        err?.errors?.[0]?.message ?? err?.message ?? 'Google sign in failed. Please try again.';
+      setError(message);
+      Alert.alert('Google Sign In Failed', message);
+    } finally {
+      setIsGoogleLoading(false);
     }
   };
 
@@ -80,6 +106,37 @@ export default function SignInScreen() {
             <Typography variant="body" color="secondary" style={{ marginTop: 8 }}>
               Sign in to your Rooted account
             </Typography>
+          </View>
+
+          {/* Google Sign In */}
+          <TouchableOpacity
+            style={styles.googleBtn}
+            onPress={handleGoogleSignIn}
+            disabled={isGoogleLoading}
+            activeOpacity={0.75}
+          >
+            {isGoogleLoading ? (
+              <ActivityIndicator size="small" color={theme.colors.textPrimary} />
+            ) : (
+              <>
+                <Image
+                  source={{ uri: 'https://www.google.com/favicon.ico' }}
+                  style={styles.googleIcon}
+                />
+                <Typography variant="label" style={styles.googleBtnText}>
+                  Continue with Google
+                </Typography>
+              </>
+            )}
+          </TouchableOpacity>
+
+          {/* Divider */}
+          <View style={styles.divider}>
+            <View style={styles.dividerLine} />
+            <Typography variant="caption" color="tertiary" style={styles.dividerText}>
+              or sign in with email
+            </Typography>
+            <View style={styles.dividerLine} />
           </View>
 
           {/* Form */}
@@ -141,8 +198,8 @@ export default function SignInScreen() {
             ) : null}
 
             {/* Forgot */}
-            <TouchableOpacity 
-              style={styles.forgotRow} 
+            <TouchableOpacity
+              style={styles.forgotRow}
               onPress={() => router.push('/(auth)/forgot-password')}
               hitSlop={8}
             >
@@ -198,6 +255,42 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: theme.spacing['2xl'],
+  },
+  googleBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
+    borderWidth: 1,
+    borderColor: theme.colors.surfaceBorder,
+    paddingVertical: 14,
+    paddingHorizontal: theme.spacing.base,
+    marginBottom: theme.spacing.xl,
+  },
+  googleIcon: {
+    width: 20,
+    height: 20,
+    borderRadius: 2,
+  },
+  googleBtnText: {
+    color: theme.colors.textPrimary,
+    fontSize: theme.fontSize.base,
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xl,
+    gap: theme.spacing.sm,
+  },
+  dividerLine: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: theme.colors.surfaceBorder,
+  },
+  dividerText: {
+    paddingHorizontal: 4,
   },
   form: {
     gap: theme.spacing.base,
