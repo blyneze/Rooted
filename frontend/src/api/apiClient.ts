@@ -17,10 +17,13 @@ export const useApiClient = () => {
 
     client.interceptors.request.use(async (config: any) => {
       try {
-        // Wait briefly for Clerk to be ready before attaching token
-        const token = await getToken();
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        // If a request already has an Authorization header, don't overwrite it.
+        // This allows specific calls (like onboarding) to force a fresh token.
+        if (config.headers && !config.headers.Authorization) {
+          const token = await getToken();
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
         }
       } catch (error) {
         console.warn('Error getting auth token:', error);
