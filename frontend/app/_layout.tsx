@@ -103,7 +103,7 @@ async function registerForPushNotificationsAsync() {
 }
 
 function RootLayoutInner() {
-  const { getToken, userId } = useAuth();
+  const { getToken, userId, isLoaded: clerkLoaded } = useAuth();
   const [appIsReady, setAppIsReady] = useState(false);
   const [splashVisible, setSplashVisible] = useState(true);
 
@@ -115,11 +115,11 @@ function RootLayoutInner() {
   });
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
+    if ((fontsLoaded || fontError) && clerkLoaded) {
       setAppIsReady(true);
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError, clerkLoaded]);
 
   useEffect(() => {
     if (userId) {
@@ -142,9 +142,8 @@ function RootLayoutInner() {
     }
   }, [userId]);
 
-  if (!fontsLoaded && !fontError) {
-    return <LoadingSplash isLoading={true} onAnimationComplete={() => setSplashVisible(false)} />;
-  }
+  // Removed early return that caused unmatched route errors
+  // The LoadingSplash is rendered inside the main View below instead
 
   return (
     <View style={styles.root}>

@@ -6,8 +6,11 @@ import theme from '@/theme';
 export default function AuthLayout() {
   const { isSignedIn, isLoaded } = useAuth();
 
-  if (!isLoaded) return <View style={styles.loading} />;
-  if (isSignedIn) return <Redirect href="/(tabs)" />;
+  if (!isLoaded) {
+    // Return the stack but don't redirect yet. Root layout handles the splash screen holding.
+  } else if (isSignedIn) {
+    return <Redirect href="/(tabs)" />;
+  }
 
   return (
     <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
