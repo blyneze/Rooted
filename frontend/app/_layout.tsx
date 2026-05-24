@@ -115,11 +115,11 @@ function RootLayoutInner() {
   });
 
   useEffect(() => {
-    if ((fontsLoaded || fontError) && clerkLoaded) {
+    if (fontsLoaded || fontError) {
       setAppIsReady(true);
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError, clerkLoaded]);
+  }, [fontsLoaded, fontError]);
 
   useEffect(() => {
     if (userId) {

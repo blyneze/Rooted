@@ -4,10 +4,10 @@
     "slug": "rooted",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo1024.png",
+    "icon": "./assets/Rooted102.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo1024.png",
+      "image": "./assets/Rooted102.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo1024.png",
+        "foregroundImage": "./assets/Rooted102.png",
         "backgroundColor": "#ffffff",
         "resizeMode": "contain"
       },
